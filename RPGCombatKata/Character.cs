@@ -2,6 +2,7 @@
 {
     public class Character
     {
+        private const int Heals = 100;
         public int Life { get; protected set; } = 1000;
         public int Level { get; } = 1;
         public int Damage { get; }
@@ -28,7 +29,12 @@
 
         public void Heal(Character character)
         {
-            character.Life += 100;
+            character.Heal();
+        }
+
+        private void Heal()
+        {
+            Life += Heals;
         }
     }
 }
