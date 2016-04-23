@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using RPGCombatKata;
 
@@ -67,6 +68,16 @@ namespace Tests
             ACharacter().Heal(damagedCharacter);
 
             damagedCharacter.Life.Should().Be(FullLife);
+        }
+
+        [Test]
+        public void not_be_healed_when_it_is_dead()
+        {
+            var damagedCharacter = ACharacterWithLife(0);
+
+            Action heal = () => ACharacter().Heal(damagedCharacter);
+
+            heal.ShouldThrow<HealDeadCharacterException>();
         }
 
         private Character ACharacterWithLife(int life)

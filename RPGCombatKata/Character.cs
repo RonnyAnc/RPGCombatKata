@@ -35,6 +35,7 @@
 
         private void Heal()
         {
+            if (!IsAlive()) throw new HealDeadCharacterException();
             if (Life == FullLife) return;
             Life += Heals;
         }
