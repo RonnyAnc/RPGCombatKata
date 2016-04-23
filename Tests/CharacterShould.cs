@@ -9,11 +9,6 @@ namespace Tests
     public class CharacterShould
     {
         private const int FullLife = 1000;
-        /*
-            - characters have two states live or dead
-            - deal damage
-            - heal characters
-		 */
 
         [Test]
         public void start_with_full_life_points_as_health()
@@ -98,6 +93,18 @@ namespace Tests
             Action attackHimself = () => character.AttackTo(character);
 
             attackHimself.ShouldThrow<AttackHimselfException>();
+        }
+
+        [Test]
+        public void not_heal_his_enemies()
+        {
+            var character = ACharacter();
+            var enemy = ACharacterWithLife(100);
+            character.AddEnemy(enemy);
+
+            Action healAnEnemy = () => character.Heal(enemy);
+
+            healAnEnemy.ShouldThrow<HealAnEnemyException>();
         }
 
         private Character ACharacterWithLife(int life)

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AttackHimselfException.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="HealAnEnemyException.cs" />
     <Compile Include="HealDeadCharacterException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

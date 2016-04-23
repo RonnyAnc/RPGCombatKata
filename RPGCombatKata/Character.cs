@@ -1,4 +1,6 @@
-﻿namespace RPGCombatKata
+﻿using System.Collections.Generic;
+
+namespace RPGCombatKata
 {
     public class Character
     {
@@ -7,6 +9,7 @@
         public int Life { get; protected set; } = FullLife;
         public int Level { get; } = 1;
         public int Damage { get; }
+        public List<Character> Enemies { get; } = new List<Character>();
 
         public Character(int damage)
         {
@@ -31,6 +34,7 @@
 
         public void Heal(Character character)
         {
+            if (Enemies.Contains(character)) throw new HealAnEnemyException();
             character.Heal();
         }
 
@@ -45,6 +49,11 @@
         private bool IsDead()
         {
             return !IsAlive();
+        }
+
+        public void AddEnemy(Character enemy)
+        {
+            Enemies.Add(enemy);
         }
     }
 }
