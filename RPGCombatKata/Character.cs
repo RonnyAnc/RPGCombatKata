@@ -12,7 +12,12 @@
 
         public void AttackTo(Character victim)
         {
-            victim.Life -= 100;
+            victim.ReceiveDamage(100);
+        }
+
+        private void ReceiveDamage(int damage)
+        {
+            Life -= damage;
         }
     }
 }
