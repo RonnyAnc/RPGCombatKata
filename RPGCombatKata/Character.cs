@@ -6,7 +6,7 @@
         public int Level { get; } = 1;
         public int Damage { get; }
 
-        public Character(int damage = 100)
+        public Character(int damage)
         {
             Damage = damage;
         }

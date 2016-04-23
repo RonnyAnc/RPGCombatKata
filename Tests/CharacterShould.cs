@@ -29,7 +29,7 @@ namespace Tests
         [Test]
         public void attack_to_others()
         {
-            var attacker = ACharacter();
+            var attacker = ACharacterWithDamage(100);
             var damagedCharacter = ACharacter();
 
             attacker.AttackTo(damagedCharacter);
@@ -61,7 +61,7 @@ namespace Tests
 
         private static Character ACharacter()
         {
-            return new Character();
+            return new Character(0);
         }
     }
 }
