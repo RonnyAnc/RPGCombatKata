@@ -58,11 +58,11 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_has_full_life()
         {
-            var damagedCharacter = ACharacterWithLife(FullLife);
+            var character = ACharacterWithLife(FullLife);
 
-            ACharacter().Heal(damagedCharacter);
+            ACharacter().Heal(character);
 
-            damagedCharacter.Life.Should().Be(FullLife);
+            character.Life.Should().Be(FullLife);
         }
 
         [Test]
@@ -100,11 +100,21 @@ namespace Tests
         {
             var character = ACharacter();
             var enemy = ACharacterWithLife(100);
-            character.AddEnemy(enemy);
 
             Action healAnEnemy = () => character.Heal(enemy);
 
             healAnEnemy.ShouldThrow<HealAnEnemyException>();
+        }
+
+        [Test]
+        public void reduce_its_attack_by_50_percent_when_its_enemy_has_5_or_more_levels_above()
+        {
+            var attacker = ACharacterWithDamage(FullLife);
+            var damagedCharacter = ACharacter();
+
+            attacker.AttackTo(damagedCharacter);
+
+            ShouldBeDead(damagedCharacter);
         }
 
         private Character ACharacterWithLife(int life)
