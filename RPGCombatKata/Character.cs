@@ -3,7 +3,8 @@
     public class Character
     {
         private const int Heals = 100;
-        public int Life { get; protected set; } = 1000;
+        private const int FullLife = 1000;
+        public int Life { get; protected set; } = FullLife;
         public int Level { get; } = 1;
         public int Damage { get; }
 
@@ -34,7 +35,7 @@
 
         private void Heal()
         {
-            if (Life == 1000) return;
+            if (Life == FullLife) return;
             Life += Heals;
         }
     }

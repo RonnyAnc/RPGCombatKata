@@ -7,6 +7,7 @@ namespace Tests
     [TestFixture]
     public class CharacterShould
     {
+        private const int FullLife = 1000;
         /*
             - characters have two states live or dead
             - deal damage
@@ -14,9 +15,9 @@ namespace Tests
 		 */
 
         [Test]
-        public void start_with_1000_points_as_health()
+        public void start_with_full_life_points_as_health()
         {
-            ACharacter().Life.Should().Be(1000);
+            ACharacter().Life.Should().Be(FullLife);
             ACharacter().IsAlive().Should().BeTrue();
         }
 
@@ -40,7 +41,7 @@ namespace Tests
         [Test]
         public void die_when_its_life_arrives_to_zero()
         {
-            var attacker = ACharacterWithDamage(1000);
+            var attacker = ACharacterWithDamage(FullLife);
             var damagedCharacter = ACharacter();
 
             attacker.AttackTo(damagedCharacter);
@@ -61,11 +62,11 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_has_full_life()
         {
-            var damagedCharacter = ACharacterWithLife(1000);
+            var damagedCharacter = ACharacterWithLife(FullLife);
 
             ACharacter().Heal(damagedCharacter);
 
-            damagedCharacter.Life.Should().Be(1000);
+            damagedCharacter.Life.Should().Be(FullLife);
         }
 
         private Character ACharacterWithLife(int life)
