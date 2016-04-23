@@ -30,12 +30,13 @@
 
         public void Heal(Character character)
         {
-            if (character.IsDead()) throw new HealDeadCharacterException();
             character.Heal();
         }
 
-        private void Heal()
+        public void Heal()
         {
+            if (IsDead()) throw new HealDeadCharacterException();
+
             if (Life == FullLife) return;
             Life += Heals;
         }

@@ -73,11 +73,21 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_is_dead()
         {
-            var damagedCharacter = ACharacterWithLife(0);
+            var deadCharacter = ACharacterWithLife(0);
 
-            Action heal = () => ACharacter().Heal(damagedCharacter);
+            Action heal = () => ACharacter().Heal(deadCharacter);
 
             heal.ShouldThrow<HealDeadCharacterException>();
+        }
+
+        [Test]
+        public void be_able_to_heal_himself()
+        {
+            var damagedCharacter = ACharacterWithLife(500);
+
+            damagedCharacter.Heal();
+
+            damagedCharacter.Life.Should().Be(600);
         }
 
         private Character ACharacterWithLife(int life)
