@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using RPGCombatKata;
 
 namespace Tests
 {
@@ -24,10 +25,5 @@ namespace Tests
         {
             return new Character();
         }
-    }
-
-    public class Character
-    {
-        public int Life { get; } = 1000;
     }
 }
