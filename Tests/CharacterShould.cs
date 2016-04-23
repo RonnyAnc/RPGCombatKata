@@ -90,6 +90,16 @@ namespace Tests
             damagedCharacter.Life.Should().Be(600);
         }
 
+        [Test]
+        public void not_attack_himself()
+        {
+            var character = ACharacterWithLife(500);
+
+            Action attackHimself = () => character.AttackTo(character);
+
+            attackHimself.ShouldThrow<AttackHimselfException>();
+        }
+
         private Character ACharacterWithLife(int life)
         {
             return new DamagedCharacter(life);   

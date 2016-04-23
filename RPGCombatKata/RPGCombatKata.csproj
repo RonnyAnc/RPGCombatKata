@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttackHimselfException.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="HealDeadCharacterException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

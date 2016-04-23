@@ -20,6 +20,7 @@
 
         public void AttackTo(Character victim)
         {
+            if (this == victim) throw new AttackHimselfException();
             victim.ReceiveDamage(Damage);
         }
 
