@@ -2,7 +2,7 @@
 {
     public class Character
     {
-        public int Life { get; private set; } = 1000;
+        public int Life { get; protected set; } = 1000;
         public int Level { get; } = 1;
         public int Damage { get; }
 
@@ -24,6 +24,11 @@
         private void ReceiveDamage(int damage)
         {
             Life -= damage;
+        }
+
+        public void Heal(Character character)
+        {
+            character.Life += 100;
         }
     }
 }
