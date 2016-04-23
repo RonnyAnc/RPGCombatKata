@@ -30,14 +30,19 @@
 
         public void Heal(Character character)
         {
+            if (character.IsDead()) throw new HealDeadCharacterException();
             character.Heal();
         }
 
         private void Heal()
         {
-            if (!IsAlive()) throw new HealDeadCharacterException();
             if (Life == FullLife) return;
             Life += Heals;
+        }
+
+        private bool IsDead()
+        {
+            return !IsAlive();
         }
     }
 }
