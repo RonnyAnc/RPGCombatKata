@@ -26,6 +26,17 @@ namespace Tests
             ACharacter().Level.Should().Be(1);
         }
 
+        [Test]
+        public void attack_to_others()
+        {
+            var attacker = ACharacter();
+            var damagedCharacter = ACharacter();
+
+            attacker.AttackTo(damagedCharacter);
+
+            damagedCharacter.Life.Should().Be(900);
+        }
+
         private static Character ACharacter()
         {
             return new Character();
