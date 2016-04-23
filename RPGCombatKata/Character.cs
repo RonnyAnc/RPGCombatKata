@@ -34,8 +34,13 @@ namespace RPGCombatKata
 
         public void Heal(Character character)
         {
-            if (Enemies.Contains(character)) throw new HealAnEnemyException();
+            if (IsAnEnemy(character)) throw new HealAnEnemyException();
             character.Heal();
+        }
+
+        private bool IsAnEnemy(Character character)
+        {
+            return Enemies.Contains(character);
         }
 
         public void Heal()
