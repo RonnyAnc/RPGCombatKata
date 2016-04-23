@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 namespace RPGCombatKata
@@ -12,12 +10,12 @@ namespace RPGCombatKata
         public int Life { get; protected set; } = FullLife;
         public int Level { get; } = 1;
         public int Damage { get; }
-        public Subject<Character> Enemies2 = new Subject<Character>();
+        public Subject<Character> Enemies = new Subject<Character>();
 
         public Character(int damage)
         {
             Damage = damage;
-            Enemies2.Subscribe(e => e.ReceiveDamage(Damage));
+            Enemies.Subscribe(e => e.ReceiveDamage(Damage));
         }
 
         public bool IsAlive()
@@ -28,7 +26,7 @@ namespace RPGCombatKata
         public void AttackTo(Character victim)
         {
             if (this == victim) throw new AttackHimselfException();
-            Enemies2.OnNext(victim);
+            Enemies.OnNext(victim);
         }
 
         private void ReceiveDamage(int damage)
