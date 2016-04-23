@@ -17,7 +17,12 @@ namespace Tests
         [Test]
         public void start_with_1000_points_as_health()
         {
-            new Character().Life.Should().Be(1000);
+            ACharacter().Life.Should().Be(1000);
+        }
+
+        private static Character ACharacter()
+        {
+            return new Character();
         }
     }
 
