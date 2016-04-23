@@ -37,6 +37,23 @@ namespace Tests
             damagedCharacter.Life.Should().Be(900);
         }
 
+        [Test]
+        public void die_when_its_life_arrives_to_zero()
+        {
+            var attacker = ACharacterWithDamage(1000);
+            var damagedCharacter = ACharacter();
+
+            attacker.AttackTo(damagedCharacter);
+
+            damagedCharacter.Life.Should().Be(0);
+            damagedCharacter.IsAlive().Should().BeFalse();
+        }
+
+        private Character ACharacterWithDamage(int damage)
+        {
+            return new Character(damage);
+        }
+
         private static Character ACharacter()
         {
             return new Character();

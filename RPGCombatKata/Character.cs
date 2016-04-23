@@ -4,15 +4,21 @@
     {
         public int Life { get; private set; } = 1000;
         public int Level { get; } = 1;
+        public int Damage { get; }
+
+        public Character(int damage = 100)
+        {
+            Damage = damage;
+        }
 
         public bool IsAlive()
         {
-            return true;
+            return Life != 0;
         }
 
         public void AttackTo(Character victim)
         {
-            victim.ReceiveDamage(100);
+            victim.ReceiveDamage(Damage);
         }
 
         private void ReceiveDamage(int damage)
