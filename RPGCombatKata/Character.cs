@@ -34,6 +34,7 @@
 
         private void Heal()
         {
+            if (Life == 1000) return;
             Life += Heals;
         }
     }

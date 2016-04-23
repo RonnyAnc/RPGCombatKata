@@ -58,6 +58,16 @@ namespace Tests
             damagedCharacter.Life.Should().Be(600);
         }
 
+        [Test]
+        public void not_be_healed_when_it_has_full_life()
+        {
+            var damagedCharacter = ACharacterWithLife(1000);
+
+            ACharacter().Heal(damagedCharacter);
+
+            damagedCharacter.Life.Should().Be(1000);
+        }
+
         private Character ACharacterWithLife(int life)
         {
             return new DamagedCharacter(life);   
