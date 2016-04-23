@@ -8,7 +8,6 @@ namespace Tests
     public class CharacterShould
     {
         /*
-            - start at level 1
             - characters have two states live or dead
             - deal damage
             - heal characters
@@ -18,6 +17,7 @@ namespace Tests
         public void start_with_1000_points_as_health()
         {
             ACharacter().Life.Should().Be(1000);
+            ACharacter().IsAlive().Should().BeTrue();
         }
 
         [Test]

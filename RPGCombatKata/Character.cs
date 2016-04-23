@@ -4,5 +4,10 @@
     {
         public int Life { get; } = 1000;
         public int Level { get; } = 1;
+
+        public bool IsAlive()
+        {
+            return true;
+        }
     }
 }
