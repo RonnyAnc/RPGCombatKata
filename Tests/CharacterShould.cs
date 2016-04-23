@@ -45,6 +45,11 @@ namespace Tests
 
             attacker.AttackTo(damagedCharacter);
 
+            ShouldBeDead(damagedCharacter);
+        }
+
+        private static void ShouldBeDead(Character damagedCharacter)
+        {
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
         }
