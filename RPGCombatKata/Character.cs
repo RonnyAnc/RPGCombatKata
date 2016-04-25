@@ -18,7 +18,7 @@ namespace RPGCombatKata
         {
             Damage = damage;
             Enemies.Subscribe(e => e.ReceiveDamage(Damage));
-            Team.Where(IsNotAnEnemy).Subscribe(p => p.Heal());
+            Team.Subscribe(p => p.Heal());
         }
 
         private static bool IsNotAnEnemy(Character c)
@@ -44,6 +44,8 @@ namespace RPGCombatKata
 
         public void Heal(Character character)
         {
+            if (character is Enemy) throw new HealAnEnemyException();
+
             Team.OnNext(character);
         }
 

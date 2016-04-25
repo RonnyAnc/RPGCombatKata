@@ -101,8 +101,9 @@ namespace Tests
             var character = ACharacter();
             var enemy = AnEnemyWithLife(100);
 
-            character.Heal(enemy);
+            Action healAnEnemy = () => character.Heal(enemy);
 
+            healAnEnemy.ShouldThrow<HealAnEnemyException>();
             enemy.Life.Should().Be(100);
         }
 
