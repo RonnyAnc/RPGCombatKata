@@ -18,12 +18,16 @@ namespace RPGCombatKata
         {
             Damage = damage;
             Enemies.Where(e => e != this)
-                    .Where(e => e.Level - Level < 5)
+                    .Where(e => e.Level - Level < 5 && Level - e.Level < 5)
                     .Subscribe(e => e.ReceiveDamage(Damage));
 
             Enemies.Where(e => e != this)
                     .Where(e => e.Level - Level >= 5)
                     .Subscribe(e => e.ReceiveDamage(Damage / 2));
+
+            Enemies.Where(e => e != this)
+                .Where(e => Level - e.Level >= 5)
+                .Subscribe(e => e.ReceiveDamage(Damage * 2));
 
             Team.Where(IsNotAnEnemy)
                     .Where(IsAlive)
