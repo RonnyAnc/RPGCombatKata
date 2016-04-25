@@ -70,9 +70,9 @@ namespace Tests
         {
             var deadCharacter = ACharacterWithLife(0);
 
-            Action heal = () => ACharacter().Heal(deadCharacter);
+            ACharacter().Heal(deadCharacter);
 
-            heal.ShouldThrow<HealDeadCharacterException>();
+            deadCharacter.Life.Should().Be(0);
         }
 
         [Test]
@@ -90,9 +90,9 @@ namespace Tests
         {
             var character = ACharacterWithLife(500);
 
-            Action attackHimself = () => character.AttackTo(character);
+            character.AttackTo(character);
 
-            attackHimself.ShouldThrow<AttackHimselfException>();
+            character.Life.Should().Be(500);
         }
 
         [Test]
@@ -101,9 +101,8 @@ namespace Tests
             var character = ACharacter();
             var enemy = AnEnemyWithLife(100);
 
-            Action healAnEnemy = () => character.Heal(enemy);
+            character.Heal(enemy);
 
-            healAnEnemy.ShouldThrow<HealAnEnemyException>();
             enemy.Life.Should().Be(100);
         }
 

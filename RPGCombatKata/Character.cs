@@ -17,8 +17,16 @@ namespace RPGCombatKata
         public Character(int damage)
         {
             Damage = damage;
-            Enemies.Subscribe(e => e.ReceiveDamage(Damage));
-            Team.Subscribe(p => p.Heal());
+            Enemies.Where(e => e != this)
+                    .Subscribe(e => e.ReceiveDamage(Damage));
+            Team.Where(IsNotAnEnemy)
+                    .Where(IsAlive)
+                    .Subscribe(p => p.Heal());
+        }
+
+        private static bool IsAlive(Character character)
+        {
+            return character.IsAlive();
         }
 
         private static bool IsNotAnEnemy(Character c)
@@ -33,7 +41,6 @@ namespace RPGCombatKata
 
         public void AttackTo(Character victim)
         {
-            if (this == victim) throw new AttackHimselfException();
             Enemies.OnNext(victim);
         }
 
@@ -44,15 +51,11 @@ namespace RPGCombatKata
 
         public void Heal(Character character)
         {
-            if (character is Enemy) throw new HealAnEnemyException();
-
             Team.OnNext(character);
         }
 
         public void Heal()
         {
-            if (IsDead()) throw new HealDeadCharacterException();
-
             if (Life == FullLife) return;
             Life += Heals;
         }
