@@ -117,9 +117,25 @@ namespace Tests
             ShouldBeDead(damagedCharacter);
         }
 
+        [Test]
+        public void the_damage_applied_will_be_reduced_50_percent_when_target_is_5_or_more_levels_above()
+        {
+            var attacker = ACharacterWith(level: 10, damage: 50);
+            var damagedCharacter = ACharacterWith(level: 20, life: 500);
+
+            attacker.AttackTo(damagedCharacter);
+
+            damagedCharacter.Life.Should().Be(475);
+        }
+
+        private Character ACharacterWith(int level, int life = 1000, int damage = 0)
+        {
+            return new TestableCharacter(life: life, damage: damage, level: level);
+        }
+
         private Character ACharacterWithLife(int life)
         {
-            return new DamagedCharacter(life);   
+            return new TestableCharacter(life);   
         }
 
         private static void ShouldBeDead(Character damagedCharacter)
@@ -137,7 +153,6 @@ namespace Tests
         {
             return new Character(0);
         }
-
 
         private Enemy AnEnemyWithLife(int life)
         {

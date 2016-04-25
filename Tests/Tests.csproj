@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterShould.cs" />
-    <Compile Include="DamagedCharacter.cs" />
+    <Compile Include="TestableCharacter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

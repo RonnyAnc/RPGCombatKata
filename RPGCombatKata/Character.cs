@@ -9,7 +9,7 @@ namespace RPGCombatKata
         private const int Heals = 100;
         private const int FullLife = 1000;
         public int Life { get; protected set; } = FullLife;
-        public int Level { get; } = 1;
+        public int Level { get; protected set; } = 1;
         public int Damage { get; }
         public Subject<Character> Enemies = new Subject<Character>();
         public Subject<Character> Team = new Subject<Character>();
@@ -18,7 +18,13 @@ namespace RPGCombatKata
         {
             Damage = damage;
             Enemies.Where(e => e != this)
+                    .Where(e => e.Level - Level < 5)
                     .Subscribe(e => e.ReceiveDamage(Damage));
+
+            Enemies.Where(e => e != this)
+                    .Where(e => e.Level - Level >= 5)
+                    .Subscribe(e => e.ReceiveDamage(Damage / 2));
+
             Team.Where(IsNotAnEnemy)
                     .Where(IsAlive)
                     .Subscribe(p => p.Heal());
