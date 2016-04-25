@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 namespace RPGCombatKata
@@ -11,11 +12,18 @@ namespace RPGCombatKata
         public int Level { get; } = 1;
         public int Damage { get; }
         public Subject<Character> Enemies = new Subject<Character>();
+        public Subject<Character> Team = new Subject<Character>();
 
         public Character(int damage)
         {
             Damage = damage;
             Enemies.Subscribe(e => e.ReceiveDamage(Damage));
+            Team.Where(IsNotAnEnemy).Subscribe(p => p.Heal());
+        }
+
+        private static bool IsNotAnEnemy(Character c)
+        {
+            return !(c is Enemy);
         }
 
         public bool IsAlive()
@@ -36,8 +44,7 @@ namespace RPGCombatKata
 
         public void Heal(Character character)
         {
-            //if (IsAnEnemy(character)) throw new HealAnEnemyException();
-            character.Heal();
+            Team.OnNext(character);
         }
 
         public void Heal()
@@ -52,5 +59,10 @@ namespace RPGCombatKata
         {
             return !IsAlive();
         }
+    }
+
+    public class Enemy : Character
+    {
+        public Enemy(int damage) : base(damage) {}
     }
 }

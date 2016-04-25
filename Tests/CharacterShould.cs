@@ -99,11 +99,11 @@ namespace Tests
         public void not_heal_his_enemies()
         {
             var character = ACharacter();
-            var enemy = ACharacterWithLife(100);
+            var enemy = AnEnemyWithLife(100);
 
-            Action healAnEnemy = () => character.Heal(enemy);
+            character.Heal(enemy);
 
-            healAnEnemy.ShouldThrow<HealAnEnemyException>();
+            enemy.Life.Should().Be(100);
         }
 
         [Test]
@@ -136,6 +136,21 @@ namespace Tests
         private static Character ACharacter()
         {
             return new Character(0);
+        }
+
+
+        private Enemy AnEnemyWithLife(int life)
+        {
+            return new DamagedEnemy(life);
+        }
+
+    }
+
+    public class DamagedEnemy : Enemy
+    {
+        public DamagedEnemy(int life) : base(0)
+        {
+            Life = life;
         }
     }
 }
