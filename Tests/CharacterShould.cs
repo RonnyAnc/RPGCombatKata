@@ -134,14 +134,14 @@ namespace Tests
             damagedCharacter.IsAlive().Should().BeFalse();
         }
 
-        private Character ACharacterWithDamage(int damage)
+        private TestableCharacter ACharacterWithDamage(int damage)
         {
-            return new Character(damage);
+            return new TestableCharacter(life: 100, damage: damage);
         }
 
         private static Character ACharacter()
         {
-            return new Character(0);
+            return new Character();
         }
     }
 }
