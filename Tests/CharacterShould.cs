@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
 using RPGCombatKata;
 
@@ -9,6 +10,13 @@ namespace Tests
     public class CharacterShould
     {
         private const int FullLife = 1000;
+        private RangeCalculator rangeCalculator;
+
+        [SetUp]
+        public void SetUp()
+        {
+            rangeCalculator = Substitute.For<RangeCalculator>();
+        }
 
         [Test]
         public void start_with_full_life_points_as_health()
@@ -120,12 +128,16 @@ namespace Tests
 
         private Character ACharacterWith(int level, int life = 1000, int damage = 0)
         {
-            return new TestableCharacter(life: life, damage: damage, level: level);
+            return new TestableCharacter(
+                rangeCalculator: rangeCalculator,
+                life: life, 
+                damage: damage, 
+                level: level);
         }
 
         private Character ACharacterWithLife(int life)
         {
-            return new TestableCharacter(life);   
+            return new TestableCharacter(rangeCalculator, life);   
         }
 
         private static void ShouldBeDead(Character damagedCharacter)
@@ -136,12 +148,15 @@ namespace Tests
 
         private TestableCharacter ACharacterWithDamage(int damage)
         {
-            return new TestableCharacter(life: 100, damage: damage);
+            return new TestableCharacter(
+                rangeCalculator: rangeCalculator,
+                life: 100, 
+                damage: damage);
         }
 
-        private static Character ACharacter()
+        private Character ACharacter()
         {
-            return new Character();
+            return new Character(rangeCalculator);
         }
     }
 }

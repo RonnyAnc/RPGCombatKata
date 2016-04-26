@@ -6,6 +6,7 @@ namespace RPGCombatKata
 {
     public class Character
     {
+        private readonly RangeCalculator rangeCalculator;
         private const int Heals = 100;
         private const int FullLife = 1000;
         public int Life { get; protected set; } = FullLife;
@@ -14,17 +15,22 @@ namespace RPGCombatKata
         public Subject<Character> Enemies = new Subject<Character>();
         public Subject<Character> Team = new Subject<Character>();
 
-        public Character()
+        public Character(RangeCalculator rangeCalculator = null)
         {
-            Enemies.Where(e => e != this)
+            this.rangeCalculator = rangeCalculator;
+            
+            var enemiesInRange = Enemies
+                .Where(e => rangeCalculator != null && rangeCalculator.CalculateDistanceBetween(this, e) < 1);
+
+            enemiesInRange.Where(e => e != this)
                     .Where(e => e.Level - Level < 5 && Level - e.Level < 5)
                     .Subscribe(e => e.ReceiveDamage(Damage));
 
-            Enemies.Where(e => e != this)
+            enemiesInRange.Where(e => e != this)
                     .Where(e => e.Level - Level >= 5)
                     .Subscribe(e => e.ReceiveDamage(Damage / 2));
 
-            Enemies.Where(e => e != this)
+            enemiesInRange.Where(e => e != this)
                 .Where(e => Level - e.Level >= 5)
                 .Subscribe(e => e.ReceiveDamage(Damage * 2));
         }

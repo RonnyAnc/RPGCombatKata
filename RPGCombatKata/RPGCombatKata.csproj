@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
