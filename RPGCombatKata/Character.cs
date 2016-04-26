@@ -28,20 +28,11 @@ namespace RPGCombatKata
             Enemies.Where(e => e != this)
                 .Where(e => Level - e.Level >= 5)
                 .Subscribe(e => e.ReceiveDamage(Damage * 2));
-
-            Team.Where(IsNotAnEnemy)
-                    .Where(IsAlive)
-                    .Subscribe(p => p.Heal());
         }
 
         private static bool IsAlive(Character character)
         {
             return character.IsAlive();
-        }
-
-        private static bool IsNotAnEnemy(Character c)
-        {
-            return !(c is Enemy);
         }
 
         public bool IsAlive()
@@ -59,13 +50,9 @@ namespace RPGCombatKata
             Life -= damage;
         }
 
-        public void Heal(Character character)
-        {
-            Team.OnNext(character);
-        }
-
         public void Heal()
         {
+            if (IsDead()) return;
             if (Life == FullLife) return;
             Life += Heals;
         }
@@ -74,10 +61,5 @@ namespace RPGCombatKata
         {
             return !IsAlive();
         }
-    }
-
-    public class Enemy : Character
-    {
-        public Enemy(int damage) : base(damage) {}
     }
 }

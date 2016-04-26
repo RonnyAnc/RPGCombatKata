@@ -46,21 +46,11 @@ namespace Tests
         }
 
         [Test]
-        public void heal_other_characters()
-        {
-            var damagedCharacter = ACharacterWithLife(500);
-
-            ACharacter().Heal(damagedCharacter);
-
-            damagedCharacter.Life.Should().Be(600);
-        }
-
-        [Test]
         public void not_be_healed_when_it_has_full_life()
         {
             var character = ACharacterWithLife(FullLife);
 
-            ACharacter().Heal(character);
+            character.Heal();
 
             character.Life.Should().Be(FullLife);
         }
@@ -70,7 +60,7 @@ namespace Tests
         {
             var deadCharacter = ACharacterWithLife(0);
 
-            ACharacter().Heal(deadCharacter);
+            deadCharacter.Heal();
 
             deadCharacter.Life.Should().Be(0);
         }
@@ -93,17 +83,6 @@ namespace Tests
             character.AttackTo(character);
 
             character.Life.Should().Be(500);
-        }
-
-        [Test]
-        public void not_heal_his_enemies()
-        {
-            var character = ACharacter();
-            var enemy = AnEnemyWithLife(100);
-
-            character.Heal(enemy);
-
-            enemy.Life.Should().Be(100);
         }
 
         [Test]
@@ -163,20 +142,6 @@ namespace Tests
         private static Character ACharacter()
         {
             return new Character(0);
-        }
-
-        private Enemy AnEnemyWithLife(int life)
-        {
-            return new DamagedEnemy(life);
-        }
-
-    }
-
-    public class DamagedEnemy : Enemy
-    {
-        public DamagedEnemy(int life) : base(0)
-        {
-            Life = life;
         }
     }
 }
