@@ -13,7 +13,6 @@ namespace RPGCombatKata
         public int Level { get; protected set; } = 1;
         public int Damage { get; protected set; } = 100;
         public Subject<Character> Enemies = new Subject<Character>();
-        public Subject<Character> Team = new Subject<Character>();
         protected abstract int AttackRange { get; }
 
         public Character(RangeCalculator rangeCalculator)
