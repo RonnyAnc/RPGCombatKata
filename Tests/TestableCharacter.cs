@@ -16,5 +16,7 @@ namespace Tests
             Level = level;
             return this;
         }
+
+        protected override int AttackRange { get; } = 0;
     }
 }

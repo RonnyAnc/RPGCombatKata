@@ -156,7 +156,7 @@ namespace Tests
 
         private Character ACharacter()
         {
-            return new Character(rangeCalculator);
+            return new MeleeFigther(rangeCalculator);
         }
     }
 }

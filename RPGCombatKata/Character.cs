@@ -4,7 +4,7 @@ using System.Reactive.Subjects;
 
 namespace RPGCombatKata
 {
-    public class Character
+    public abstract class Character
     {
         private readonly RangeCalculator rangeCalculator;
         private const int Heals = 100;
@@ -14,13 +14,14 @@ namespace RPGCombatKata
         public int Damage { get; protected set; } = 100;
         public Subject<Character> Enemies = new Subject<Character>();
         public Subject<Character> Team = new Subject<Character>();
+        protected abstract int AttackRange { get; }
 
         public Character(RangeCalculator rangeCalculator)
         {
             this.rangeCalculator = rangeCalculator;
             
             var enemiesInRange = Enemies
-                .Where(e => rangeCalculator.CalculateDistanceBetween(this, e) < 3);
+                .Where(e => rangeCalculator.CalculateDistanceBetween(this, e) <= AttackRange);
 
             enemiesInRange.Where(e => e != this)
                     .Where(e => e.Level - Level < 5 && Level - e.Level < 5)
