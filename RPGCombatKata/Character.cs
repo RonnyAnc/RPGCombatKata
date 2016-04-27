@@ -15,12 +15,12 @@ namespace RPGCombatKata
         public Subject<Character> Enemies = new Subject<Character>();
         public Subject<Character> Team = new Subject<Character>();
 
-        public Character(RangeCalculator rangeCalculator = null)
+        public Character(RangeCalculator rangeCalculator)
         {
             this.rangeCalculator = rangeCalculator;
             
             var enemiesInRange = Enemies
-                .Where(e => rangeCalculator != null && rangeCalculator.CalculateDistanceBetween(this, e) < 3);
+                .Where(e => rangeCalculator.CalculateDistanceBetween(this, e) < 3);
 
             enemiesInRange.Where(e => e != this)
                     .Where(e => e.Level - Level < 5 && Level - e.Level < 5)
