@@ -20,7 +20,7 @@ namespace RPGCombatKata
             this.rangeCalculator = rangeCalculator;
             
             var enemiesInRange = Enemies
-                .Where(e => rangeCalculator != null && rangeCalculator.CalculateDistanceBetween(this, e) < 1);
+                .Where(e => rangeCalculator != null && rangeCalculator.CalculateDistanceBetween(this, e) < 3);
 
             enemiesInRange.Where(e => e != this)
                     .Where(e => e.Level - Level < 5 && Level - e.Level < 5)

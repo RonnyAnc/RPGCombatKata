@@ -22,10 +22,20 @@ namespace Tests
 
             victim.Life.Should().Be(1000);
         }
-    }
 
-    public class MeleeFigther : Character
-    {
-        public MeleeFigther(RangeCalculator rangeCalculator) : base(rangeCalculator) {}
+        [Test]
+        public void attack_when_enemy_is_closer_than_3_meters()
+        {
+            var rangeCalculator = Substitute.For<RangeCalculator>();
+            var meleeFighter = new MeleeFigther(rangeCalculator);
+            var victim = new TestableCharacter(rangeCalculator, life: 1000);
+            rangeCalculator
+                .CalculateDistanceBetween(meleeFighter, victim)
+                .Returns(2);
+
+            meleeFighter.AttackTo(victim);
+
+            victim.Life.Should().Be(900);
+        }
     }
 }

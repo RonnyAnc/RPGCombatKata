@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="MeleeFigther.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeCalculator.cs" />
   </ItemGroup>
