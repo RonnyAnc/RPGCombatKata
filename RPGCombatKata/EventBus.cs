@@ -1,0 +1,18 @@
+﻿using System;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+
+namespace RPGCombatKata
+{
+    public static class EventBus
+    {
+        private static readonly Subject<object> messageSubject = new Subject<object>();
+
+        public static void Send<T>(T message)
+        {
+            messageSubject.OnNext(message);
+        }
+
+        public static IObservable<T> AsObservable<T>() { return messageSubject.OfType<T>(); }
+    }
+}
