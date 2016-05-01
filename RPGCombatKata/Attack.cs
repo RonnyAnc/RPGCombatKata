@@ -4,6 +4,7 @@ namespace RPGCombatKata
 {
     public class Attack : GameEvent
     {
+        private const int SignificantLevelDifference = 5;
         public Character Target { get; set; }
         public Character Source { get; set; }
 
@@ -23,12 +24,12 @@ namespace RPGCombatKata
 
         private bool IsTheTargetLevelSignificantlyHigher()
         {
-            return Target.Level - Source.Level >= 5;
+            return Target.Level - Source.Level >= SignificantLevelDifference;
         }
 
         public bool IsTheSourceLevelSignificantlyHigher()
         {
-            return Source.Level - Target.Level >= 5;
+            return Source.Level - Target.Level >= SignificantLevelDifference;
         }
     }
 }

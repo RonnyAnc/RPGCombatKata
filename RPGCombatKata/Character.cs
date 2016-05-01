@@ -16,11 +16,16 @@ namespace RPGCombatKata
 
         protected Character(RangeCalculator rangeCalculator)
         {
-            var attacksToMe = EventBus.AsObservable<Attack>()
-                .Where(a => a.Target == this)
+            EventBus.AsObservable<Attack>()
+                .Where(IAmTheTarget())
                 .Where(a => rangeCalculator
-                        .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange)
+                    .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange)
                 .Subscribe(a => ReceiveDamage(a.Damage));
+        }
+
+        private Func<Attack, bool> IAmTheTarget()
+        {
+            return a => a.Target == this;
         }
 
         public bool IsAlive()
