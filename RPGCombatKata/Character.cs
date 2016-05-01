@@ -22,15 +22,15 @@ namespace RPGCombatKata
                         .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange);
 
             attacksToMe
-                .Where(attack => Math.Abs(attack.Source.Level - Level) < 5)
+                .Where(attack => attack.ThereIsNotImportantLevelDifference())
                 .Subscribe(a => ReceiveDamage(a.Damage));
 
             attacksToMe
-                .Where(a => Level - a.Source.Level >= 5)
+                .Where(a => a.IsTheTargetLevelSignificantlyHigher())
                 .Subscribe(a => ReceiveDamage(a.Damage / 2));
 
             attacksToMe
-                .Where(a => a.Source.Level - Level >= 5)
+                .Where(a => a.IsTheSourceLevelSignificantlyHigher())
                 .Subscribe(a => ReceiveDamage(a.Damage * 2));
         }
 
