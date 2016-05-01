@@ -90,14 +90,6 @@ namespace Tests
         [Test, Ignore("Study how to do with the new implementation")]
         public void not_attack_himself()
         {
-            var character = ACharacterWithLife(500);
-
-            var damagedCharacter = ACharacter();
-            var attack = new Attack(target: damagedCharacter, damage: FullLife);
-
-            attack.Raise();
-
-            character.Life.Should().Be(500);
         }
 
         [Test]

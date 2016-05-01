@@ -23,15 +23,15 @@ namespace RPGCombatKata
 
             attacksToMe
                 .Where(attack => Math.Abs(attack.Source.Level - Level) < 5)
-                .Subscribe(a => ReceiveDamage(a.Source.Damage));
+                .Subscribe(a => ReceiveDamage(a.Damage));
 
             attacksToMe
                 .Where(a => Level - a.Source.Level >= 5)
-                .Subscribe(a => ReceiveDamage(a.Source.Damage / 2));
+                .Subscribe(a => ReceiveDamage(a.Damage / 2));
 
             attacksToMe
                 .Where(a => a.Source.Level - Level >= 5)
-                .Subscribe(a => ReceiveDamage(a.Source.Damage * 2));
+                .Subscribe(a => ReceiveDamage(a.Damage * 2));
         }
 
         public bool IsAlive()
