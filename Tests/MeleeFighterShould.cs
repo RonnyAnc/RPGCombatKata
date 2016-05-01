@@ -17,8 +17,9 @@ namespace Tests
             rangeCalculator
                 .CalculateDistanceBetween(meleeFighter, victim)
                 .Returns(3);
+            var attack = new Attack(source: meleeFighter, target: victim);
 
-            meleeFighter.AttackTo(victim);
+            attack.Raise();
 
             victim.Life.Should().Be(1000);
         }
@@ -32,8 +33,9 @@ namespace Tests
             rangeCalculator
                 .CalculateDistanceBetween(meleeFighter, victim)
                 .Returns(2);
+            var attack = new Attack(source: meleeFighter, target: victim);
 
-            meleeFighter.AttackTo(victim);
+            attack.Raise();
 
             victim.Life.Should().Be(900);
         }

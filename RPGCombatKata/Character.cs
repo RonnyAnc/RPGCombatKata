@@ -6,7 +6,6 @@ namespace RPGCombatKata
 {
     public abstract class Character
     {
-        private readonly RangeCalculator rangeCalculator;
         private const int Heals = 100;
         private const int FullLife = 1000;
         public decimal Life { get; protected set; } = FullLife;
@@ -15,10 +14,13 @@ namespace RPGCombatKata
         public Subject<Character> Enemies = new Subject<Character>();
         protected abstract int AttackRange { get; }
 
-        public Character(RangeCalculator rangeCalculator)
+        protected Character(RangeCalculator rangeCalculator)
         {
             var attacksToMe = EventBus.AsObservable<Attack>()
-                .Where(a => a.Target == this);
+                .Where(a => a.Target == this)
+                .Where(a => rangeCalculator
+                        .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange);
+
             attacksToMe
                 .Where(attack => Math.Abs(attack.Source.Level - Level) < 5)
                 .Subscribe(a => ReceiveDamage(a.Source.Damage));
@@ -32,19 +34,9 @@ namespace RPGCombatKata
                 .Subscribe(a => ReceiveDamage(a.Source.Damage * 2));
         }
 
-        private static bool IsAlive(Character character)
-        {
-            return character.IsAlive();
-        }
-
         public bool IsAlive()
         {
             return Life != 0;
-        }
-
-        public void AttackTo(Character victim)
-        {
-            Enemies.OnNext(victim);
         }
 
         private void ReceiveDamage(decimal damage)

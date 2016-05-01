@@ -15,6 +15,8 @@ namespace Tests
         public void SetUp()
         {
             rangeCalculator = Substitute.For<RangeCalculator>();
+            rangeCalculator.CalculateDistanceBetween(Arg.Any<Character>(), Arg.Any<Character>())
+                .Returns(0);
         }
 
         [Test]
@@ -94,7 +96,6 @@ namespace Tests
             var attack = new Attack(target: damagedCharacter, damage: FullLife);
 
             attack.Raise();
-            character.AttackTo(character);
 
             character.Life.Should().Be(500);
         }
