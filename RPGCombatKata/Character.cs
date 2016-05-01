@@ -19,19 +19,8 @@ namespace RPGCombatKata
             var attacksToMe = EventBus.AsObservable<Attack>()
                 .Where(a => a.Target == this)
                 .Where(a => rangeCalculator
-                        .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange);
-
-            attacksToMe
-                .Where(attack => attack.ThereIsNotImportantLevelDifference())
+                        .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange)
                 .Subscribe(a => ReceiveDamage(a.Damage));
-
-            attacksToMe
-                .Where(a => a.IsTheTargetLevelSignificantlyHigher())
-                .Subscribe(a => ReceiveDamage(a.Damage / 2));
-
-            attacksToMe
-                .Where(a => a.IsTheSourceLevelSignificantlyHigher())
-                .Subscribe(a => ReceiveDamage(a.Damage * 2));
         }
 
         public bool IsAlive()

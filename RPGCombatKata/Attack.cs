@@ -7,7 +7,13 @@ namespace RPGCombatKata
         public Character Target { get; set; }
         public Character Source { get; set; }
 
-        public decimal Damage => Source.Damage;
+        public decimal Damage {
+            get {
+                if(IsTheSourceLevelSignificantlyHigher()) return Source.Damage * 2;
+                if(IsTheTargetLevelSignificantlyHigher()) return Source.Damage / 2;
+                return Source.Damage;
+            }
+        }
 
         public Attack(Character source, Character target)
         {
@@ -15,12 +21,7 @@ namespace RPGCombatKata
             Target = target;
         }
 
-        public bool ThereIsNotImportantLevelDifference()
-        {
-            return Math.Abs(Source.Level - Target.Level) < 5;
-        }
-
-        public bool IsTheTargetLevelSignificantlyHigher()
+        private bool IsTheTargetLevelSignificantlyHigher()
         {
             return Target.Level - Source.Level >= 5;
         }
