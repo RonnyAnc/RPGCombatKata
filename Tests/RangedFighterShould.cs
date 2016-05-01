@@ -24,10 +24,4 @@ namespace Tests
             victim.Life.Should().Be(900);
         }
     }
-
-    public class RangedFigther : Character
-    {
-        public RangedFigther(RangeCalculator rangeCalculator) : base(rangeCalculator) {}
-        protected override int AttackRange { get; } = 20;
-    }
 }
