@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterShould.cs" />
+    <Compile Include="GameEngineShould.cs" />
     <Compile Include="MeleeFighterShould.cs" />
     <Compile Include="RangedFighterShould.cs" />
     <Compile Include="TestableCharacter.cs" />

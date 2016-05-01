@@ -11,21 +11,18 @@ namespace RPGCombatKata
         public decimal Life { get; protected set; } = FullLife;
         public int Level { get; protected set; } = 1;
         public decimal Damage { get; protected set; } = 100;
-        public Subject<Character> Enemies = new Subject<Character>();
-        protected abstract int AttackRange { get; }
+        public abstract int AttackRange { get; }
 
-        protected Character(RangeCalculator rangeCalculator)
+        protected Character()
         {
-            EventBus.AsObservable<Attack>()
+            EventBus.AsObservable<Damage>()
                 .Where(IAmTheTarget())
-                .Where(a => rangeCalculator
-                    .CalculateDistanceBetween(a.Source, this) <= a.Source.AttackRange)
-                .Subscribe(a => ReceiveDamage(a.Damage));
+                .Subscribe(damage => ReceiveDamage(damage.Value));
         }
 
-        private Func<Attack, bool> IAmTheTarget()
+        private Func<Damage, bool> IAmTheTarget()
         {
-            return a => a.Target == this;
+            return damage => damage.Target == this;
         }
 
         public bool IsAlive()

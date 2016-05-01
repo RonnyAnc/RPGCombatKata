@@ -12,8 +12,8 @@ namespace Tests
         public void attack_when_enemy_is_closer_than_21_meters()
         {
             var rangeCalculator = Substitute.For<RangeCalculator>();
-            var rangedFighter = new RangedFigther(rangeCalculator);
-            var victim = new TestableCharacter(rangeCalculator, life: 1000);
+            var rangedFighter = new RangedFigther();
+            var victim = new TestableCharacter(life: 1000);
             rangeCalculator
                 .CalculateDistanceBetween(rangedFighter, victim)
                 .Returns(20);

@@ -4,7 +4,7 @@ namespace Tests
 {
     internal class TestableCharacter : Character
     {
-        public TestableCharacter(RangeCalculator rangeCalculator, int life, int damage = 0, int level = 0) : base(rangeCalculator)
+        public TestableCharacter(int life, decimal damage = 0, int level = 0)
         {
             Damage = damage;
             Life = life;
@@ -17,6 +17,6 @@ namespace Tests
             return this;
         }
 
-        protected override int AttackRange { get; } = 0;
+        public override int AttackRange { get; } = 1000;
     }
 }

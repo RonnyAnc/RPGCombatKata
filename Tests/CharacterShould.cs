@@ -118,16 +118,14 @@ namespace Tests
 
         private Character ACharacterWith(int level, int life = 1000, int damage = 0)
         {
-            return new TestableCharacter(
-                rangeCalculator: rangeCalculator,
-                life: life, 
+            return new TestableCharacter(life: life, 
                 damage: damage, 
                 level: level);
         }
 
         private Character ACharacterWithLife(int life)
         {
-            return new TestableCharacter(rangeCalculator, life);   
+            return new TestableCharacter(life);   
         }
 
         private static void ShouldBeDead(Character damagedCharacter)
@@ -138,15 +136,13 @@ namespace Tests
 
         private TestableCharacter ACharacterWithDamage(int damage)
         {
-            return new TestableCharacter(
-                rangeCalculator: rangeCalculator,
-                life: 100, 
+            return new TestableCharacter(life: 100, 
                 damage: damage);
         }
 
         private Character ACharacter()
         {
-            return new MeleeFigther(rangeCalculator);
+            return new MeleeFigther();
         }
     }
 }

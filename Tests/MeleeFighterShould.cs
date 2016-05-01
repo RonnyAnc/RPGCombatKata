@@ -12,8 +12,8 @@ namespace Tests
         public void not_attack_when_enemy_is_further_than_2_meters()
         {
             var rangeCalculator = Substitute.For<RangeCalculator>();
-            var meleeFighter = new MeleeFigther(rangeCalculator);
-            var victim = new TestableCharacter(rangeCalculator, life: 1000);
+            var meleeFighter = new MeleeFigther();
+            var victim = new TestableCharacter(life: 1000);
             rangeCalculator
                 .CalculateDistanceBetween(meleeFighter, victim)
                 .Returns(3);
@@ -28,8 +28,8 @@ namespace Tests
         public void attack_when_enemy_is_closer_than_3_meters()
         {
             var rangeCalculator = Substitute.For<RangeCalculator>();
-            var meleeFighter = new MeleeFigther(rangeCalculator);
-            var victim = new TestableCharacter(rangeCalculator, life: 1000);
+            var meleeFighter = new MeleeFigther();
+            var victim = new TestableCharacter(life: 1000);
             rangeCalculator
                 .CalculateDistanceBetween(meleeFighter, victim)
                 .Returns(2);

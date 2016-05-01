@@ -16,6 +16,8 @@ namespace RPGCombatKata
             }
         }
 
+        public int Range => Source.AttackRange;
+
         public Attack(Character source, Character target)
         {
             Source = source;
