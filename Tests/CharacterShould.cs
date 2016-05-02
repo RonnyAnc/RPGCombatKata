@@ -62,30 +62,6 @@ namespace Tests
             damagedCharacter.Life.Should().Be(600);
         }
     
-        [Test]
-        public void the_damage_applied_will_be_reduced_50_percent_when_target_is_5_or_more_levels_above()
-        {
-            var attacker = ACharacterWith(level: 10, damage: 50);
-            var damagedCharacter = ACharacterWith(level: 20, life: 500);
-            var attack = new Attack(source: attacker, target: damagedCharacter);
-
-            attack.Raise();
-
-            damagedCharacter.Life.Should().Be(475);
-        }
-
-        [Test]
-        public void the_damage_applied_will_be_boosted_50_percent_when_target_is_5_or_more_levels_below()
-        {
-            var attacker = ACharacterWith(level: 10, damage: 50);
-            var damagedCharacter = ACharacterWith(level: 5, life: 500);
-            var attack = new Attack(source: attacker, target: damagedCharacter);
-
-            attack.Raise();
-
-            damagedCharacter.Life.Should().Be(400);
-        }
-
         private Character ACharacterWith(int level, int life = 1000, int damage = 0)
         {
             return new TestableCharacter(life: life, 
