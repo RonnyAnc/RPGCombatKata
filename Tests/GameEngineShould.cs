@@ -108,7 +108,7 @@ namespace Tests
             damagedCharacter.Life.Should().Be(400);
         }
 
-        private static Character ACharacterWith(int level = 0, decimal life = 1000, decimal damage = 0, int range = 0)
+        private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(
                 life: life,

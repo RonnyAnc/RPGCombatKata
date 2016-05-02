@@ -35,7 +35,7 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_has_full_life()
         {
-            var character = ACharacterWithLife(FullLife);
+            var character = ACharacterWith(life: FullLife);
 
             character.Heal();
 
@@ -45,7 +45,7 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_is_dead()
         {
-            var deadCharacter = ACharacterWithLife(0);
+            var deadCharacter = ACharacterWith(life: 0);
 
             deadCharacter.Heal();
 
@@ -55,35 +55,18 @@ namespace Tests
         [Test]
         public void be_able_to_heal_himself()
         {
-            var damagedCharacter = ACharacterWithLife(500);
+            var damagedCharacter = ACharacterWith(life: 500);
 
             damagedCharacter.Heal();
 
             damagedCharacter.Life.Should().Be(600);
         }
     
-        private Character ACharacterWith(int level, int life = 1000, int damage = 0)
+        private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)
         {
             return new TestableCharacter(life: life, 
                 damage: damage, 
                 level: level);
-        }
-
-        private Character ACharacterWithLife(int life)
-        {
-            return new TestableCharacter(life);   
-        }
-
-        private static void ShouldBeDead(Character damagedCharacter)
-        {
-            damagedCharacter.Life.Should().Be(0);
-            damagedCharacter.IsAlive().Should().BeFalse();
-        }
-
-        private TestableCharacter ACharacterWithDamage(int damage)
-        {
-            return new TestableCharacter(life: 100, 
-                damage: damage);
         }
 
         private Character ACharacter()
