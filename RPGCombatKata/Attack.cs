@@ -33,5 +33,10 @@ namespace RPGCombatKata
         {
             return Source.Level - Target.Level >= SignificantLevelDifference;
         }
+
+        public bool IsInRange(int distance)
+        {
+            return distance <= Range;
+        }
     }
 }

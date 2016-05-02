@@ -6,13 +6,32 @@ namespace RPGCombatKata
 {
     public class Game
     {
+        private readonly RangeCalculator rangeCalculator;
+
         public Game(RangeCalculator rangeCalculator)
         {
+            this.rangeCalculator = rangeCalculator;
             EventBus.AsObservable<Attack>()
-                .Where(a => rangeCalculator
-                    .CalculateDistanceBetween(a.Source, a.Target) <= a.Range)
-                .Where(a => a.Source != a.Target)
+                .Where(IsTheRangeSatisfied)
+                .Where(IsNotASelfAttack)
                 .Subscribe(SendDamage);
+        }
+
+        private bool IsTheRangeSatisfied(Attack attack)
+        {
+            var distance = ObtainDistanceBetween(attack.Source, attack.Target);
+            return attack.IsInRange(distance);
+        }
+
+        private int ObtainDistanceBetween(Character attacker, Character victim)
+        {
+            return rangeCalculator
+                .CalculateDistanceBetween(attacker, victim);
+        }
+
+        private static bool IsNotASelfAttack(Attack a)
+        {
+            return a.Source != a.Target;
         }
 
         private static void SendDamage(Attack attack)
