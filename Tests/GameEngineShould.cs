@@ -32,8 +32,8 @@ namespace Tests
         [Test]
         public async Task send_damage_to_a_player_that_is_in_source_enemy_attack_range()
         {
-            var attacker = new TestableCharacter(damage: 100, range: 5);
-            var victim = new TestableCharacter(life: 1000);
+            var attacker = ACharacterWith(damage: 100, range: 5);
+            var victim = ACharacterWith(life: FullLife);
             rangeCalculator.CalculateDistanceBetween(attacker, victim)
                 .Returns(1);
             var attack = new Attack(source: attacker, target: victim);
@@ -46,8 +46,8 @@ namespace Tests
         [Test]
         public async Task not_send_damage_to_a_player_that_is_not_in_source_enemy_attack_range()
         {
-            var attacker = new TestableCharacter(damage: 100, range: 5);
-            var victim = new TestableCharacter(life: 1000);
+            var attacker = ACharacterWith(damage: 100, range: 5);
+            var victim = ACharacterWith(life: FullLife);
             rangeCalculator.CalculateDistanceBetween(attacker, victim)
                 .Returns(6);
             var attack = new Attack(source: attacker, target: victim);
@@ -60,8 +60,8 @@ namespace Tests
         [Test]
         public async Task die_when_its_life_arrives_to_zero()
         {
-            var attacker = new TestableCharacter(damage: FullLife, range: 1);
-            var damagedCharacter = ACharacter();
+            var attacker = ACharacterWith(damage: FullLife, range: 1);
+            var damagedCharacter = ACharacterWith(life: FullLife);
             rangeCalculator.CalculateDistanceBetween(attacker, damagedCharacter)
                 .Returns(1);
             var attack = new Attack(target: damagedCharacter, source: attacker);
@@ -108,34 +108,19 @@ namespace Tests
             damagedCharacter.Life.Should().Be(400);
         }
 
-        private Character ACharacterWith(int level = 0, decimal life = 1000, decimal damage = 0)
+        private static Character ACharacterWith(int level = 0, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(
                 life: life,
                 damage: damage,
-                level: level);
-        }
-
-        private Character ACharacterWithLife(int life)
-        {
-            return new TestableCharacter(life);
+                level: level,
+                range: range);
         }
 
         private static void ShouldBeDead(Character damagedCharacter)
         {
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
-        }
-
-        private TestableCharacter ACharacterWithDamage(decimal damage)
-        {
-            return new TestableCharacter(life: 100,
-                damage: damage);
-        }
-
-        private Character ACharacter()
-        {
-            return new MeleeFigther();
         }
     }
 }
