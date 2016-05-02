@@ -1,14 +1,13 @@
 using System;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 namespace RPGCombatKata
 {
-    public class Game
+    public class GameEngine
     {
         private readonly RangeCalculator rangeCalculator;
 
-        public Game(RangeCalculator rangeCalculator)
+        public GameEngine(RangeCalculator rangeCalculator)
         {
             this.rangeCalculator = rangeCalculator;
             EventBus.AsObservable<Attack>()

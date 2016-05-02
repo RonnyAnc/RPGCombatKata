@@ -60,7 +60,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="Damage.cs" />
     <Compile Include="EventBus.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameEventExtension.cs" />
     <Compile Include="MeleeFigther.cs" />
