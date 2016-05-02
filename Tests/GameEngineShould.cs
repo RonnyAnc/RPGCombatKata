@@ -30,10 +30,10 @@ namespace Tests
         }
 
         [Test]
-        public async Task send_damage_to_a_player_that_is_attacked_by_other_inside_his_range()
+        public async Task send_damage_to_a_player_that_is_in_source_enemy_attack_range()
         {
-            var attacker = new MeleeFigther();
-            var victim = new MeleeFigther();
+            var attacker = new TestableCharacter(damage: 100, range: 5);
+            var victim = new TestableCharacter(life: 1000);
             rangeCalculator.CalculateDistanceBetween(attacker, victim)
                 .Returns(1);
             var attack = new Attack(source: attacker, target: victim);
@@ -44,9 +44,23 @@ namespace Tests
         }
 
         [Test]
+        public async Task not_send_damage_to_a_player_that_is_not_in_source_enemy_attack_range()
+        {
+            var attacker = new TestableCharacter(damage: 100, range: 5);
+            var victim = new TestableCharacter(life: 1000);
+            rangeCalculator.CalculateDistanceBetween(attacker, victim)
+                .Returns(6);
+            var attack = new Attack(source: attacker, target: victim);
+
+            attack.Raise();
+
+            victim.Life.Should().Be(1000);
+        }
+
+        [Test]
         public async Task die_when_its_life_arrives_to_zero()
         {
-            var attacker = ACharacterWithDamage(FullLife);
+            var attacker = new TestableCharacter(damage: FullLife, range: 1);
             var damagedCharacter = ACharacter();
             rangeCalculator.CalculateDistanceBetween(attacker, damagedCharacter)
                 .Returns(1);
