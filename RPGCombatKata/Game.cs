@@ -12,12 +12,12 @@ namespace RPGCombatKata
         {
             this.rangeCalculator = rangeCalculator;
             EventBus.AsObservable<Attack>()
-                .Where(IsTheRangeSatisfied)
+                .Where(IsInRange)
                 .Where(IsNotASelfAttack)
                 .Subscribe(SendDamage);
         }
 
-        private bool IsTheRangeSatisfied(Attack attack)
+        private bool IsInRange(Attack attack)
         {
             var distance = ObtainDistanceBetween(attack.Source, attack.Target);
             return attack.IsInRange(distance);
