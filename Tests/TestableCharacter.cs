@@ -4,7 +4,7 @@ namespace Tests
 {
     internal class TestableCharacter : Character
     {
-        public TestableCharacter(int life, decimal damage = 0, int level = 0)
+        public TestableCharacter(decimal life, decimal damage = 0, int level = 0)
         {
             Damage = damage;
             Life = life;

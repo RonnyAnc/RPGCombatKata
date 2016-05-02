@@ -57,7 +57,20 @@ namespace Tests
             ShouldBeDead(damagedCharacter);
         }
 
-        private Character ACharacterWith(int level, int life = 1000, int damage = 0)
+        [Test]
+        public void avoid_players_attack_themselves()
+        {
+            var player = ACharacterWith(life: FullLife, damage: FullLife);
+            rangeCalculator.CalculateDistanceBetween(player, player)
+                .Returns(0);
+            var attack = new Attack(source: player, target: player);
+
+            attack.Raise();
+
+            player.Life.Should().Be(FullLife);
+        }
+
+        private Character ACharacterWith(int level = 0, decimal life = 1000, decimal damage = 0)
         {
             return new TestableCharacter(
                 life: life,
