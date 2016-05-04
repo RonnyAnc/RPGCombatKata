@@ -55,7 +55,14 @@ namespace RPGCombatKata
 
         public bool IsAnEnemyOf(Character other)
         {
+            if (this.IsNotInAFaction()) return true;
+            if (other.IsNotInAFaction()) return true;
             return FactionName != other.FactionName;
+        }
+
+        private bool IsNotInAFaction()
+        {
+            return string.IsNullOrEmpty(FactionName);
         }
     }
 }

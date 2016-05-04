@@ -19,7 +19,6 @@ namespace RPGCombatKata
 
         private bool CharactersAreEnemies(Attack attack)
         {
-            if (string.IsNullOrEmpty(attack.Source.FactionName)) return true;
             return attack.AreEnemiesBothCharacters();
         }
 
