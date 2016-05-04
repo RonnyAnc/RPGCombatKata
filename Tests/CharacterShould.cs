@@ -61,6 +61,7 @@ namespace Tests
 
             damagedCharacter.Life.Should().Be(600);
         }
+        
     
         private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)
         {

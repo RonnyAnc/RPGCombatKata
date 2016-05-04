@@ -64,5 +64,13 @@ namespace RPGCombatKata
         {
             return string.IsNullOrEmpty(FactionName);
         }
+
+        public void LeaveFaction(string avengers)
+        {
+            if (FactionName == avengers)
+            {
+                FactionName = null;
+            }
+        }
     }
 }
