@@ -20,7 +20,7 @@ namespace RPGCombatKata
         private bool CharactersAreEnemies(Attack attack)
         {
             if (string.IsNullOrEmpty(attack.Source.FactionName)) return true;
-            return attack.Source.IsAnEnemyOf(attack.Target);
+            return attack.AreEnemiesBothCharacters();
         }
 
         private bool IsInRange(Attack attack)
