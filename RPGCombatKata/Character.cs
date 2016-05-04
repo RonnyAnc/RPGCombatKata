@@ -52,5 +52,10 @@ namespace RPGCombatKata
         {
             FactionName = factionName;
         }
+
+        public bool IsAnEnemyOf(Character other)
+        {
+            return FactionName != other.FactionName;
+        }
     }
 }
