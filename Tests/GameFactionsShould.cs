@@ -18,5 +18,19 @@ namespace Tests
 
             faction.Contains(character).Should().BeTrue();
         }
+
+        [Test]
+        public void accept_requests_to_leave_a_faction()
+        {
+            var character = new MeleeFigther();
+            var faction = new Faction();
+            var joinRequest = new JoinToFactionRequest(character: character, faction: faction);
+            var leaveRequest = new LeaveFactionRequest(character: character, faction: faction);
+
+            joinRequest.Raise();
+            leaveRequest.Raise();
+
+            faction.Contains(character).Should().BeFalse();
+        }
     }
 }

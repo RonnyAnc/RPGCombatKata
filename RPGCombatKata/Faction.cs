@@ -14,15 +14,29 @@ namespace RPGCombatKata
         {
             EventBus.AsObservable<JoinToFactionRequest>()
                 .Where(r => r.Faction == this)
-                .Subscribe(Accept);
+                .Subscribe(AcceptJoinment);
+
+            EventBus.AsObservable<LeaveFactionRequest>()
+                .Where(request => request.Faction == this)
+                .Subscribe(AcceptAbandonment);
         }
 
-        private void Accept(JoinToFactionRequest request)
+        private void AcceptJoinment(JoinToFactionRequest request)
         {
-            Add(request.Character);
+            AddToFunction(request.Character);
         }
 
-        private void Add(Character character)
+        private void AcceptAbandonment(LeaveFactionRequest request)
+        {
+            RemoveFromFaction(request.Character);
+        }
+
+        private void RemoveFromFaction(Character character)
+        {
+            characters.Remove(character);
+        }
+
+        private void AddToFunction(Character character)
         {
             characters.Add(character);
         }
