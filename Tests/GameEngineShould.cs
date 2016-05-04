@@ -108,6 +108,20 @@ namespace Tests
             damagedCharacter.Life.Should().Be(400);
         }
 
+        [Test]
+        public void not_allow_attacks_between_factions_partners()
+        {
+            var attacker = ACharacterWith(damage: 100);
+            var partner = ACharacterWith(life: FullLife);
+            attacker.JoinToFaction("Avengers");
+            partner.JoinToFaction("Avengers");
+            var attack = new Attack(source: attacker, target: partner);
+
+            attack.Raise();
+
+            partner.Life.Should().Be(FullLife);
+        }
+
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(

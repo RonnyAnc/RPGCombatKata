@@ -13,7 +13,14 @@ namespace RPGCombatKata
             EventBus.AsObservable<Attack>()
                 .Where(IsInRange)
                 .Where(IsNotASelfAttack)
+                .Where(CharactersAreEnemies)
                 .Subscribe(SendDamage);
+        }
+
+        private bool CharactersAreEnemies(Attack attack)
+        {
+            if (string.IsNullOrEmpty(attack.Source.FactionName)) return true;
+            return attack.Source.FactionName != attack.Target.FactionName;
         }
 
         private bool IsInRange(Attack attack)
