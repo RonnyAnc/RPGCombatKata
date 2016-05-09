@@ -48,11 +48,6 @@ namespace RPGCombatKata
             return !IsAlive();
         }
 
-        public void JoinToFaction(string factionName)
-        {
-            FactionName = factionName;
-        }
-
         public bool IsAnEnemyOf(Character other)
         {
             if (this.IsNotInAFaction()) return true;

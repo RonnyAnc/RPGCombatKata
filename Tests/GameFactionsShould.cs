@@ -20,6 +20,19 @@ namespace Tests
         }
 
         [Test]
+        public void accept_a_player_only_once()
+        {
+            var character = new MeleeFigther();
+            var faction = new Faction();
+            var request = new JoinToFactionRequest(character: character, faction: faction);
+
+            request.Raise();
+            request.Raise();
+
+            faction.CharactersCount().Should().Be(1);
+        }
+
+        [Test]
         public void accept_requests_to_leave_a_faction()
         {
             var character = new MeleeFigther();

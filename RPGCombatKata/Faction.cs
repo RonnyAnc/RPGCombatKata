@@ -14,11 +14,17 @@ namespace RPGCombatKata
         {
             EventBus.AsObservable<JoinToFactionRequest>()
                 .Where(r => r.Faction == this)
+                .Where(r => !r.Faction.Contains(r.Character))
                 .Subscribe(AcceptJoinment);
 
             EventBus.AsObservable<LeaveFactionRequest>()
                 .Where(request => request.Faction == this)
                 .Subscribe(AcceptAbandonment);
+        }
+
+        public int CharactersCount()
+        {
+            return characters.Count;
         }
 
         private void AcceptJoinment(JoinToFactionRequest request)
