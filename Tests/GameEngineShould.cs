@@ -150,7 +150,7 @@ namespace Tests
             partner.Life.Should().Be(600);
         }
 
-        [Test,Ignore("")]
+        [Test]
         public void allow_attacks_to_attackable_things()
         {
             var attacker = ACharacterWith(damage: 100);
@@ -194,11 +194,6 @@ namespace Tests
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
         }
-    }
-
-    public class House : Attackable
-    {
-        public House(int life) : base(life, 1) {}
     }
 
     public class TestableFactionCollection : GameFactions

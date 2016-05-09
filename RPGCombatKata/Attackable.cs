@@ -10,5 +10,12 @@
             Life = life;
             Level = level;
         }
+
+        public abstract bool IsAttackableBy(Character source);
+
+        protected void ReceiveDamage(decimal damage)
+        {
+            Life -= damage;
+        }
     }
 }

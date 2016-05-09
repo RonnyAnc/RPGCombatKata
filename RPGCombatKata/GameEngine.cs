@@ -51,10 +51,9 @@ namespace RPGCombatKata
             new LifeIncrement(points: heal.Points, target: heal.Target).Raise();
         }
 
-        private bool CharactersAreEnemies(Attack attack)
+        private static bool CharactersAreEnemies(Attack attack)
         {
-            if (!(attack.Target is Character)) return false;
-            return !attack.Source.Factions.Any(f => f.Contains((Character)attack.Target));
+            return attack.Target.IsAttackableBy(attack.Source);
         }
 
         private bool IsInRange(Attack attack)

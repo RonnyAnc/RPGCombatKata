@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -39,9 +40,9 @@ namespace RPGCombatKata
             return Life != 0;
         }
 
-        private void ReceiveDamage(decimal damage)
+        public override bool IsAttackableBy(Character source)
         {
-            Life -= damage;
+            return !Factions.Any(f => f.Contains(source));
         }
 
         public void Heal(int healPoints)
