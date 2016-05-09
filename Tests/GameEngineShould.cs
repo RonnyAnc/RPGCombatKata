@@ -120,10 +120,7 @@ namespace Tests
         {
             var attacker = ACharacterWith(damage: 100);
             var partner = ACharacterWith(life: FullLife);
-            var faction = new Faction();
-            GameEngine.RegistFaction(faction);
-            new JoinToFactionRequest(attacker, faction).Raise();
-            new JoinToFactionRequest(partner, faction).Raise();
+            RegistFactionWith(attacker, partner);
 
             new Attack(source: attacker, target: partner).Raise();
 
@@ -146,14 +143,29 @@ namespace Tests
         {
             var healer = ACharacterWith(life: FullLife);
             var partner = ACharacterWith(life: 500);
-            var faction = new Faction();
-            GameFactions.RegistFaction(faction);
-            new JoinToFactionRequest(healer, faction).Raise();
-            new JoinToFactionRequest(partner, faction).Raise();
+            RegistFactionWith(healer, partner);
 
             new Heal(healer: healer, target: partner).Raise();
 
             partner.Life.Should().Be(600);
+        }
+
+        private Faction RegistFactionWith(params Character[] characters)
+        {
+            var faction = new Faction();
+            foreach (var character in characters)
+            {
+                new JoinToFactionRequest(character, faction).Raise();
+            }
+            GameFactions.RegistFaction(faction);
+            return faction;
+        }
+
+        private Faction RegistFactionWith()
+        {
+            var faction = new Faction();
+            GameFactions.RegistFaction(faction);
+            return faction;
         }
 
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
