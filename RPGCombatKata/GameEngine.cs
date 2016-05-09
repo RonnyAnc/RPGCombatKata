@@ -25,11 +25,6 @@ namespace RPGCombatKata
                 .Subscribe(SendLifeIncrement);
         }
 
-        private static void SendLifeIncrement(Heal heal)
-        {
-            new LifeIncrement(points: heal.Points, target: heal.Target).Raise();
-        }
-
         private void SubscribeToAttacks()
         {
             EventBus.AsObservable<Attack>()
@@ -47,6 +42,11 @@ namespace RPGCombatKata
         public bool CharactersArePartners(Heal heal)
         {
             return gameFactions.AreInSameFaction(heal.Target, heal.Healer);
+        }
+
+        private static void SendLifeIncrement(Heal heal)
+        {
+            new LifeIncrement(points: heal.Points, target: heal.Target).Raise();
         }
 
         private bool CharactersAreEnemies(Attack attack)
