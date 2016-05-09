@@ -150,6 +150,18 @@ namespace Tests
             partner.Life.Should().Be(600);
         }
 
+        [Test,Ignore("")]
+        public void allow_attacks_to_attackable_things()
+        {
+            var attacker = ACharacterWith(damage: 100);
+            var house = new House(life: 1000);
+            var attack = new Attack(attacker, house);
+
+            attack.Raise();
+
+            house.Life.Should().Be(900);
+        }
+
         private Faction RegistFactionWith(params Character[] characters)
         {
             var faction = new Faction();
@@ -182,6 +194,11 @@ namespace Tests
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
         }
+    }
+
+    public class House : Attackable
+    {
+        public House(int life) : base(life, 1) {}
     }
 
     public class TestableFactionCollection : GameFactions

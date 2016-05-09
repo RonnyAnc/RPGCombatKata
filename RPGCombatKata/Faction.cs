@@ -30,7 +30,7 @@ namespace RPGCombatKata
 
         private void AcceptJoinment(JoinToFactionRequest request)
         {
-            AddToFunction(request.Character);
+            AddToFaction(request.Character);
         }
 
         private void AcceptAbandonment(LeaveFactionRequest request)
@@ -41,11 +41,13 @@ namespace RPGCombatKata
         private void RemoveFromFaction(Character character)
         {
             characters.Remove(character);
+            character.Leave(this);
         }
 
-        private void AddToFunction(Character character)
+        private void AddToFaction(Character character)
         {
             characters.Add(character);
+            character.JoinTo(this);
         }
 
         public bool Contains(Character character)

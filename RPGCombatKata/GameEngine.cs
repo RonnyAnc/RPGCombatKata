@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace RPGCombatKata
 {
     public class GameEngine
     {
+        private const int SignificantLevelDifference = 5;
         private readonly RangeCalculator rangeCalculator;
         private readonly GameFactions gameFactions;
 
@@ -33,7 +35,7 @@ namespace RPGCombatKata
                 .Where(CharactersAreEnemies)
                 .Subscribe(SendDamage);
         }
-
+        
         public bool IsASelfHeal(Heal heal)
         {
             return heal.Target == heal.Healer;
@@ -51,7 +53,8 @@ namespace RPGCombatKata
 
         private bool CharactersAreEnemies(Attack attack)
         {
-            return !gameFactions.AreInSameFaction(attack.Source, attack.Target);
+            if (!(attack.Target is Character)) return false;
+            return !attack.Source.Factions.Any(f => f.Contains((Character)attack.Target));
         }
 
         private bool IsInRange(Attack attack)
@@ -60,7 +63,7 @@ namespace RPGCombatKata
             return attack.IsInRange(distance);
         }
 
-        private int ObtainDistanceBetween(Character attacker, Character victim)
+        private int ObtainDistanceBetween(Character attacker, Attackable victim)
         {
             return rangeCalculator
                 .CalculateDistanceBetween(attacker, victim);

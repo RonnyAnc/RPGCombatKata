@@ -3,9 +3,9 @@ namespace RPGCombatKata
     public class Damage
     {
         public decimal Value { get; }
-        public Character Target { get; }
+        public Attackable Target { get; }
 
-        public Damage(decimal value, Character target)
+        public Damage(decimal value, Attackable target)
         {
             Value = value;
             Target = target;

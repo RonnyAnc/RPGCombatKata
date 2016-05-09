@@ -5,7 +5,7 @@ namespace RPGCombatKata
     public class Attack : GameEvent
     {
         private const int SignificantLevelDifference = 5;
-        public Character Target { get; set; }
+        public Attackable Target { get; set; }
         public Character Source { get; set; }
 
         public decimal Damage {
@@ -18,7 +18,7 @@ namespace RPGCombatKata
 
         public int Range => Source.AttackRange;
 
-        public Attack(Character source, Character target)
+        public Attack(Character source, Attackable target)
         {
             Source = source;
             Target = target;

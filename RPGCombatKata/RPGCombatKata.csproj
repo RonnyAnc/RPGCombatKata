@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attack.cs" />
+    <Compile Include="Attackable.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Damage.cs" />
     <Compile Include="EventBus.cs" />

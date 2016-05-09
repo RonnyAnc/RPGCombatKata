@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 namespace RPGCombatKata
 {
-    public abstract class Character
+    public abstract class Character : Attackable
     {
-        private const int Heals = 100;
+        public List<Faction> Factions { get; } = new List<Faction>();
         private const int FullLife = 1000;
-        public decimal Life { get; protected set; } = FullLife;
-        public int Level { get; protected set; } = 1;
+        private const int InitialLevel = 1;
         public decimal Damage { get; protected set; } = 100;
         public abstract int AttackRange { get; }
 
-        protected Character()
+        protected Character() : base(FullLife, InitialLevel)
         {
             EventBus.AsObservable<Damage>()
                 .Where(IAmTheTarget)
@@ -54,6 +54,16 @@ namespace RPGCombatKata
         private bool IsDead()
         {
             return !IsAlive();
+        }
+
+        public void JoinTo(Faction faction)
+        {
+            Factions.Add(faction);
+        }
+
+        public void Leave(Faction faction)
+        {
+            Factions.Remove(faction);
         }
     }
 }
