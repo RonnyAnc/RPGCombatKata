@@ -108,6 +108,21 @@ namespace Tests
             damagedCharacter.Life.Should().Be(400);
         }
 
+        [Test]
+        public void avoid_attacks_between_partners()
+        {
+            var attacker = ACharacterWith(damage: 100);
+            var partner = ACharacterWith(life: FullLife);
+            var faction = new Faction();
+            GameEngine.RegistFaction(faction);
+            new JoinToFactionRequest(attacker, faction).Raise();
+            new JoinToFactionRequest(partner, faction).Raise();
+
+            new Attack(source: attacker, target: partner).Raise();
+
+            partner.Life.Should().Be(FullLife);
+        }
+
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(

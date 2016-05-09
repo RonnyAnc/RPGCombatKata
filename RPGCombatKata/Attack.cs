@@ -43,10 +43,5 @@ namespace RPGCombatKata
         {
             return Source.IsAnEnemyOf(Target);
         }
-
-        public bool ContainsACharacterWithoutFaction()
-        {
-            return string.IsNullOrEmpty(Source.FactionName);
-        }
     }
 }

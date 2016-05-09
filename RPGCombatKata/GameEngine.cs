@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 
 namespace RPGCombatKata
@@ -6,6 +7,7 @@ namespace RPGCombatKata
     public class GameEngine
     {
         private readonly RangeCalculator rangeCalculator;
+        private readonly List<Faction> factions = new List<Faction>(); 
 
         public GameEngine(RangeCalculator rangeCalculator)
         {
@@ -19,7 +21,11 @@ namespace RPGCombatKata
 
         private bool CharactersAreEnemies(Attack attack)
         {
-            return attack.AreEnemiesBothCharacters();
+            foreach (var faction in factions)
+            {
+                if (faction.Contains(attack.Source) && faction.Contains(attack.Target)) return false;
+            }
+            return true;
         }
 
         private bool IsInRange(Attack attack)
@@ -42,6 +48,11 @@ namespace RPGCombatKata
         private static void SendDamage(Attack attack)
         {
             EventBus.Send(new Damage(attack.Damage, attack.Target));
+        }
+
+        public void RegistFaction(Faction faction)
+        {
+            factions.Add(faction);
         }
     }
 }
