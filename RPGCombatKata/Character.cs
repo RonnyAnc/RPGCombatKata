@@ -6,7 +6,6 @@ namespace RPGCombatKata
 {
     public abstract class Character
     {
-        public string FactionName { get; private set; }
         private const int Heals = 100;
         private const int FullLife = 1000;
         public decimal Life { get; protected set; } = FullLife;
@@ -46,26 +45,6 @@ namespace RPGCombatKata
         private bool IsDead()
         {
             return !IsAlive();
-        }
-
-        public bool IsAnEnemyOf(Character other)
-        {
-            if (this.IsNotInAFaction()) return true;
-            if (other.IsNotInAFaction()) return true;
-            return FactionName != other.FactionName;
-        }
-
-        private bool IsNotInAFaction()
-        {
-            return string.IsNullOrEmpty(FactionName);
-        }
-
-        public void LeaveFaction(string avengers)
-        {
-            if (FactionName == avengers)
-            {
-                FactionName = null;
-            }
         }
     }
 }
