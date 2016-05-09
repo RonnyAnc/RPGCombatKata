@@ -5,21 +5,21 @@ namespace RPGCombatKata
 {
     public class GameFactions
     {
-        private List<Faction> factions = new List<Faction>();
+        protected List<Faction> Factions = new List<Faction>();
 
         public void RegistFaction(Faction faction)
         {
-            factions.Add(faction);
+            Factions.Add(faction);
         }
 
         public void UnregistFaction(Faction faction)
         {
-            factions.Remove(faction);
+            Factions.Remove(faction);
         }
 
         public bool AreInSameFaction(Character source, Character target)
         {
-            return factions.Any(faction => faction.AreMembers(source, target));
+            return Factions.Any(faction => faction.AreMembers(source, target));
         }
     }
 }

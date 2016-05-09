@@ -13,7 +13,7 @@ namespace Tests
         private const decimal FullLife = 1000;
         public static RangeCalculator rangeCalculator;
         public static GameEngine GameEngine;
-        public GameFactions GameFactions { get; } = new GameFactions();
+        public TestableFactionCollection GameFactions { get; } = new TestableFactionCollection();
 
         public void LoadGame()
         {
@@ -28,6 +28,12 @@ namespace Tests
         public void SetUp()
         {
             LoadGame();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            GameFactions.Clear();
         }
 
         [Test]
@@ -137,6 +143,14 @@ namespace Tests
         {
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
+        }
+    }
+
+    public class TestableFactionCollection : GameFactions
+    {
+        public void Clear()
+        {
+            Factions.Clear();
         }
     }
 }
