@@ -17,6 +17,22 @@ namespace RPGCombatKata
                 .Where(IsNotASelfAttack)
                 .Where(CharactersAreEnemies)
                 .Subscribe(SendDamage);
+
+            var selfHeals = EventBus.AsObservable<Heal>().Where(IsASelfHeal);
+            var partnerHeals = EventBus.AsObservable<Heal>().Where(CharactersArePartners);
+            selfHeals
+                .Merge(partnerHeals)
+                .Subscribe(h => h.Target.Heal());
+        }
+
+        public bool IsASelfHeal(Heal heal)
+        {
+            return heal.Target == heal.Healer;
+        }
+
+        public bool CharactersArePartners(Heal heal)
+        {
+            return gameFactions.AreInSameFaction(heal.Target, heal.Healer);
         }
 
         private bool CharactersAreEnemies(Attack attack)

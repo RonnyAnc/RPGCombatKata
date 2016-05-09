@@ -130,6 +130,17 @@ namespace Tests
             partner.Life.Should().Be(FullLife);
         }
 
+        [Test]
+        public void avoid_heals_between_enemies()
+        {
+            var healer = ACharacterWith(life:FullLife);
+            var enemy = ACharacterWith(life:500);
+
+            new Heal(healer: healer, target: enemy).Raise();
+
+            enemy.Life.Should().Be(500);
+        }
+
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(

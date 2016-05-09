@@ -65,6 +65,7 @@
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameEventExtension.cs" />
     <Compile Include="GameFactions.cs" />
+    <Compile Include="Heal.cs" />
     <Compile Include="JoinToFactionRequest.cs" />
     <Compile Include="LeaveFactionRequest.cs" />
     <Compile Include="MeleeFigther.cs" />
