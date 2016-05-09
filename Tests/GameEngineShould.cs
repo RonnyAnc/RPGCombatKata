@@ -13,16 +13,17 @@ namespace Tests
         private const decimal FullLife = 1000;
         public static RangeCalculator rangeCalculator;
         public static GameEngine GameEngine;
+        public GameFactions GameFactions { get; } = new GameFactions();
 
         public void LoadGame()
         {
             if (GameEngine == null)
             {
                 rangeCalculator = Substitute.For<RangeCalculator>();
-                GameEngine = new GameEngine(rangeCalculator);
+                GameEngine = new GameEngine(rangeCalculator, GameFactions);
             }
         }
-
+        
         [SetUp]
         public void SetUp()
         {

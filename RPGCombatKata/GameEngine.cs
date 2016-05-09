@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 
 namespace RPGCombatKata
@@ -8,11 +6,12 @@ namespace RPGCombatKata
     public class GameEngine
     {
         private readonly RangeCalculator rangeCalculator;
-        private readonly List<Faction> factions = new List<Faction>(); 
+        private readonly GameFactions gameFactions;
 
-        public GameEngine(RangeCalculator rangeCalculator)
+        public GameEngine(RangeCalculator rangeCalculator, GameFactions gameFactions)
         {
             this.rangeCalculator = rangeCalculator;
+            this.gameFactions = gameFactions;
             EventBus.AsObservable<Attack>()
                 .Where(IsInRange)
                 .Where(IsNotASelfAttack)
@@ -22,7 +21,7 @@ namespace RPGCombatKata
 
         private bool CharactersAreEnemies(Attack attack)
         {
-            return factions.All(faction => !faction.AreMembers(attack.Source, attack.Target));
+            return !gameFactions.AreInSameFaction(attack.Source, attack.Target);
         }
 
         private bool IsInRange(Attack attack)
@@ -49,7 +48,7 @@ namespace RPGCombatKata
 
         public void RegistFaction(Faction faction)
         {
-            factions.Add(faction);
+            gameFactions.RegistFaction(faction);
         }
     }
 }
