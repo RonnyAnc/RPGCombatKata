@@ -37,7 +37,7 @@ namespace Tests
         {
             var character = ACharacterWith(life: FullLife);
 
-            character.Heal();
+            character.Heal(100);
 
             character.Life.Should().Be(FullLife);
         }
@@ -47,21 +47,10 @@ namespace Tests
         {
             var deadCharacter = ACharacterWith(life: 0);
 
-            deadCharacter.Heal();
+            deadCharacter.Heal(100);
 
             deadCharacter.Life.Should().Be(0);
         }
-
-        [Test]
-        public void be_able_to_heal_himself()
-        {
-            var damagedCharacter = ACharacterWith(life: 500);
-
-            damagedCharacter.Heal();
-
-            damagedCharacter.Life.Should().Be(600);
-        }
-        
     
         private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)
         {

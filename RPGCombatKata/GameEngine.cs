@@ -22,7 +22,7 @@ namespace RPGCombatKata
             var partnerHeals = EventBus.AsObservable<Heal>().Where(CharactersArePartners);
             selfHeals
                 .Merge(partnerHeals)
-                .Subscribe(h => h.Target.Heal());
+                .Subscribe(h => h.Target.Heal(h.Points));
         }
 
         public bool IsASelfHeal(Heal heal)

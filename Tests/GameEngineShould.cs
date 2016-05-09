@@ -141,6 +141,21 @@ namespace Tests
             enemy.Life.Should().Be(500);
         }
 
+        [Test]
+        public void allow_heals_between_partners()
+        {
+            var healer = ACharacterWith(life: FullLife);
+            var partner = ACharacterWith(life: 500);
+            var faction = new Faction();
+            GameFactions.RegistFaction(faction);
+            new JoinToFactionRequest(healer, faction).Raise();
+            new JoinToFactionRequest(partner, faction).Raise();
+
+            new Heal(healer: healer, target: partner).Raise();
+
+            partner.Life.Should().Be(600);
+        }
+
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(

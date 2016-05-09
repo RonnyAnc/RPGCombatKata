@@ -35,11 +35,11 @@ namespace RPGCombatKata
             Life -= damage;
         }
 
-        public void Heal()
+        public void Heal(int healPoints)
         {
             if (IsDead()) return;
             if (Life == FullLife) return;
-            Life += Heals;
+            Life += healPoints;
         }
 
         private bool IsDead()
