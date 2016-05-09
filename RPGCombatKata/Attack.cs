@@ -38,10 +38,5 @@ namespace RPGCombatKata
         {
             return distance <= Range;
         }
-
-        public bool AreEnemiesBothCharacters()
-        {
-            return Source.IsAnEnemyOf(Target);
-        }
     }
 }

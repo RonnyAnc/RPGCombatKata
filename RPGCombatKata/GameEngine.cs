@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace RPGCombatKata
@@ -21,11 +22,7 @@ namespace RPGCombatKata
 
         private bool CharactersAreEnemies(Attack attack)
         {
-            foreach (var faction in factions)
-            {
-                if (faction.Contains(attack.Source) && faction.Contains(attack.Target)) return false;
-            }
-            return true;
+            return factions.All(faction => !faction.AreMembers(attack.Source, attack.Target));
         }
 
         private bool IsInRange(Attack attack)
