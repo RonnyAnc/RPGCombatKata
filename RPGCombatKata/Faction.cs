@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -50,6 +51,16 @@ namespace RPGCombatKata
         public bool Contains(Character character)
         {
             return characters.Contains(character);
+        }
+
+        public bool AreMembers(params Character[] characters)
+        {
+            return characters.All(AreMembers);
+        }
+
+        private bool AreMembers(Character character)
+        {
+            return this.characters.Contains(character);
         }
     }
 }
