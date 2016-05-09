@@ -12,17 +12,31 @@ namespace RPGCombatKata
         {
             this.rangeCalculator = rangeCalculator;
             this.gameFactions = gameFactions;
+            SubscribeToAttacks();
+            SubscribeToHeals();
+        }
+
+        private void SubscribeToHeals()
+        {
+            var selfHeals = EventBus.AsObservable<Heal>().Where(IsASelfHeal);
+            var partnerHeals = EventBus.AsObservable<Heal>().Where(CharactersArePartners);
+            selfHeals
+                .Merge(partnerHeals)
+                .Subscribe(SendLifeIncrement);
+        }
+
+        private static void SendLifeIncrement(Heal heal)
+        {
+            new LifeIncrement(points: heal.Points, target: heal.Target).Raise();
+        }
+
+        private void SubscribeToAttacks()
+        {
             EventBus.AsObservable<Attack>()
                 .Where(IsInRange)
                 .Where(IsNotASelfAttack)
                 .Where(CharactersAreEnemies)
                 .Subscribe(SendDamage);
-
-            var selfHeals = EventBus.AsObservable<Heal>().Where(IsASelfHeal);
-            var partnerHeals = EventBus.AsObservable<Heal>().Where(CharactersArePartners);
-            selfHeals
-                .Merge(partnerHeals)
-                .Subscribe(h => h.Target.Heal(h.Points));
         }
 
         public bool IsASelfHeal(Heal heal)
@@ -65,6 +79,18 @@ namespace RPGCombatKata
         public void RegistFaction(Faction faction)
         {
             gameFactions.RegistFaction(faction);
+        }
+    }
+
+    internal class LifeIncrement : GameEvent
+    {
+        public int Points { get; }
+        public Character Target { get; }
+
+        public LifeIncrement(int points, Character target)
+        {
+            Points = points;
+            Target = target;
         }
     }
 }
