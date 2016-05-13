@@ -17,22 +17,17 @@ namespace RPGCombatKata
         protected Character() : base(FullLife, InitialLevel)
         {
             EventBus.AsObservable<Damage>()
-                .Where(IAmTheTarget)
+                .Where((damage) => AmI(damage.Target))
                 .Subscribe(damage => ReceiveDamage(damage.Value));
 
             EventBus.AsObservable<LifeIncrement>()
-                .Where(IAmTheTarget)
+                .Where((heal) => AmI(heal.Target))
                 .Subscribe(increment => Heal(increment.Points));
         }
 
-        private bool IAmTheTarget(LifeIncrement increment)
+        private bool AmI(Attackable character)
         {
-            return increment.Target == this;
-        }
-
-        private bool IAmTheTarget(Damage damage)
-        {
-            return damage.Target == this;
+            return character == this;
         }
 
         public bool IsAlive()
