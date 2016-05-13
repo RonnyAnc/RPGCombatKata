@@ -8,7 +8,7 @@ namespace RPGCombatKata
 {
     public abstract class Character : Attackable
     {
-        public List<Faction> Factions { get; } = new List<Faction>();
+        public List<string> Factions { get; } = new List<string>();
         private const int FullLife = 1000;
         private const int InitialLevel = 1;
         public decimal Damage { get; protected set; } = 100;
@@ -25,9 +25,9 @@ namespace RPGCombatKata
                 .Subscribe(increment => Heal(increment.Points));
         }
 
-        private bool IAmTheTarget(LifeIncrement damage)
+        private bool IAmTheTarget(LifeIncrement increment)
         {
-            return damage.Target == this;
+            return increment.Target == this;
         }
 
         private bool IAmTheTarget(Damage damage)
@@ -42,7 +42,7 @@ namespace RPGCombatKata
 
         public override bool IsAttackableBy(Character source)
         {
-            return !Factions.Any(f => f.Contains(source));
+            return !Factions.Any(f => Factions.Contains(f));
         }
 
         public void Heal(int healPoints)
@@ -57,12 +57,12 @@ namespace RPGCombatKata
             return !IsAlive();
         }
 
-        public void JoinTo(Faction faction)
+        public void JoinTo(string faction)
         {
             Factions.Add(faction);
         }
 
-        public void Leave(Faction faction)
+        public void Leave(string faction)
         {
             Factions.Remove(faction);
         }

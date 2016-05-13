@@ -13,14 +13,13 @@ namespace Tests
         private const decimal FullLife = 1000;
         public static RangeCalculator rangeCalculator;
         public static GameEngine GameEngine;
-        public TestableFactionCollection GameFactions { get; } = new TestableFactionCollection();
 
         public void LoadGame()
         {
             if (GameEngine == null)
             {
                 rangeCalculator = Substitute.For<RangeCalculator>();
-                GameEngine = new GameEngine(rangeCalculator, GameFactions);
+                GameEngine = new GameEngine(rangeCalculator);
             }
         }
         
@@ -30,14 +29,8 @@ namespace Tests
             LoadGame();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            GameFactions.Clear();
-        }
-
         [Test]
-        public async Task send_damage_to_a_player_that_is_in_source_enemy_attack_range()
+        public void send_damage_to_a_player_that_is_in_source_enemy_attack_range()
         {
             var attacker = ACharacterWith(damage: 100, range: 5);
             var victim = ACharacterWith(life: FullLife);
@@ -51,7 +44,7 @@ namespace Tests
         }
 
         [Test]
-        public async Task not_send_damage_to_a_player_that_is_not_in_source_enemy_attack_range()
+        public void not_send_damage_to_a_player_that_is_not_in_source_enemy_attack_range()
         {
             var attacker = ACharacterWith(damage: 100, range: 5);
             var victim = ACharacterWith(life: FullLife);
@@ -65,7 +58,7 @@ namespace Tests
         }
 
         [Test]
-        public async Task die_when_its_life_arrives_to_zero()
+        public void die_when_its_life_arrives_to_zero()
         {
             var attacker = ACharacterWith(damage: FullLife, range: 1);
             var damagedCharacter = ACharacterWith(life: FullLife);
@@ -120,7 +113,8 @@ namespace Tests
         {
             var attacker = ACharacterWith(damage: 100);
             var partner = ACharacterWith(life: FullLife);
-            RegistFactionWith(attacker, partner);
+            attacker.JoinTo("CommonFaction");
+            partner.JoinTo("CommonFaction");
 
             new Attack(source: attacker, target: partner).Raise();
 
@@ -143,7 +137,8 @@ namespace Tests
         {
             var healer = ACharacterWith(life: FullLife);
             var partner = ACharacterWith(life: 500);
-            RegistFactionWith(healer, partner);
+            healer.JoinTo("CommonFaction");
+            partner.JoinTo("CommonFaction");
 
             new Heal(healer: healer, target: partner).Raise();
 
@@ -162,24 +157,6 @@ namespace Tests
             house.Life.Should().Be(900);
         }
 
-        private Faction RegistFactionWith(params Character[] characters)
-        {
-            var faction = new Faction();
-            foreach (var character in characters)
-            {
-                new JoinToFactionRequest(character, faction).Raise();
-            }
-            GameFactions.RegistFaction(faction);
-            return faction;
-        }
-
-        private Faction RegistFactionWith()
-        {
-            var faction = new Faction();
-            GameFactions.RegistFaction(faction);
-            return faction;
-        }
-
         private static Character ACharacterWith(int level = 1, decimal life = 1000, decimal damage = 0, int range = 0)
         {
             return new TestableCharacter(
@@ -193,14 +170,6 @@ namespace Tests
         {
             damagedCharacter.Life.Should().Be(0);
             damagedCharacter.IsAlive().Should().BeFalse();
-        }
-    }
-
-    public class TestableFactionCollection : GameFactions
-    {
-        public void Clear()
-        {
-            Factions.Clear();
         }
     }
 }

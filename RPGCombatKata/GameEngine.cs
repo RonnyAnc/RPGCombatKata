@@ -8,12 +8,10 @@ namespace RPGCombatKata
     {
         private const int SignificantLevelDifference = 5;
         private readonly RangeCalculator rangeCalculator;
-        private readonly GameFactions gameFactions;
 
-        public GameEngine(RangeCalculator rangeCalculator, GameFactions gameFactions)
+        public GameEngine(RangeCalculator rangeCalculator)
         {
             this.rangeCalculator = rangeCalculator;
-            this.gameFactions = gameFactions;
             SubscribeToAttacks();
             SubscribeToHeals();
         }
@@ -43,7 +41,7 @@ namespace RPGCombatKata
 
         public bool CharactersArePartners(Heal heal)
         {
-            return gameFactions.AreInSameFaction(heal.Target, heal.Healer);
+            return heal.Healer.Factions.Any(f => heal.Target.Factions.Contains(f));
         }
 
         private static void SendLifeIncrement(Heal heal)
@@ -76,11 +74,6 @@ namespace RPGCombatKata
         private static void SendDamage(Attack attack)
         {
             EventBus.Send(new Damage(attack.Damage, attack.Target));
-        }
-
-        public void RegistFaction(Faction faction)
-        {
-            gameFactions.RegistFaction(faction);
         }
     }
 

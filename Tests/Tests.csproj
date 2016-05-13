@@ -56,7 +56,6 @@
     <Compile Include="CharacterShould.cs" />
     <Compile Include="GameEngineShould.cs" />
     <Compile Include="FightersShould.cs" />
-    <Compile Include="GameFactionsShould.cs" />
     <Compile Include="TestableCharacter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
