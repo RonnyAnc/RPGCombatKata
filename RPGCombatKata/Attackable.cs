@@ -5,13 +5,14 @@ namespace RPGCombatKata
 {
     public abstract class Attackable
     {
+        private const int InitialLevel = 1;
         public decimal Life { get; protected set; }
         public decimal Level { get; protected set; }
 
-        protected Attackable(decimal life, int level)
+        protected Attackable(decimal life)
         {
             Life = life;
-            Level = level;
+            Level = InitialLevel;
 
             EventBus.AsObservable<Damage>()
                 .Where(damage => IsItMe(damage.Target))

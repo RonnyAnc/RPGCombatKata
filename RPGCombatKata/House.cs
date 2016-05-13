@@ -5,7 +5,7 @@ namespace RPGCombatKata
 {
     public class House : Attackable
     {
-        public House(int life) : base(life, 1) {}
+        public House(int life) : base(life) {}
 
         public override bool IsAttackableBy(Character source)
         {

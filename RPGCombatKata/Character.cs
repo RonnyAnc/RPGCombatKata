@@ -8,14 +8,23 @@ namespace RPGCombatKata
 {
     public abstract class Character : Attackable
     {
-        private IDisposable healSubscription;
-        public List<string> Factions { get; } = new List<string>();
         private const int FullLife = 1000;
         private const int InitialLevel = 1;
+
+        private readonly IDisposable healSubscription;
+        public List<string> Factions { get; } = new List<string>();
         public decimal Damage { get; protected set; } = 100;
         public abstract int AttackRange { get; }
 
-        protected Character() : base(FullLife, InitialLevel)
+        protected Character(int initialLife) : base(initialLife)
+        {
+            healSubscription = EventBus.AsObservable<LifeIncrement>()
+                .Where(heal => IsItMe(heal.Target))
+                .Where(_ => HasNotFullLife())
+                .Subscribe(increment => Heal(increment.Points));
+        }
+
+        protected Character() : base(FullLife)
         {
             healSubscription = EventBus.AsObservable<LifeIncrement>()
                 .Where(heal => IsItMe(heal.Target))
