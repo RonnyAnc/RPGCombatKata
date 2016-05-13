@@ -37,7 +37,7 @@ namespace Tests
         {
             var character = ACharacterWith(life: FullLife);
 
-            character.Heal(100);
+            new LifeIncrement(100, character).Raise();
 
             character.Life.Should().Be(FullLife);
         }
