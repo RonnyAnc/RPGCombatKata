@@ -77,7 +77,7 @@ namespace RPGCombatKata
         }
     }
 
-    internal class LifeIncrement : GameEvent
+    public class LifeIncrement : GameEvent
     {
         public int Points { get; }
         public Character Target { get; }

@@ -45,11 +45,12 @@ namespace Tests
         [Test]
         public void not_be_healed_when_it_is_dead()
         {
-            var deadCharacter = ACharacterWith(life: 0);
+            var target = ACharacterWith(life: 100);
 
-            deadCharacter.Heal(100);
+            new Damage(100, target).Raise();
+            new LifeIncrement(100, target).Raise();
 
-            deadCharacter.Life.Should().Be(0);
+            target.Life.Should().Be(0);
         }
     
         private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)

@@ -1,6 +1,6 @@
 namespace RPGCombatKata
 {
-    public class Damage
+    public class Damage : GameEvent
     {
         public decimal Value { get; }
         public Attackable Target { get; }

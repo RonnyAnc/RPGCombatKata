@@ -1,7 +1,10 @@
-﻿namespace RPGCombatKata
+﻿using System;
+
+namespace RPGCombatKata
 {
     public abstract class Attackable
     {
+        protected IDisposable HealSubscription;
         public decimal Life { get; protected set; }
         public decimal Level { get; protected set; }
 
@@ -16,6 +19,7 @@
         protected void ReceiveDamage(decimal damage)
         {
             Life -= damage;
+            if (Life == 0) HealSubscription.Dispose();
         }
     }
 }

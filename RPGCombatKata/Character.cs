@@ -17,15 +17,15 @@ namespace RPGCombatKata
         protected Character() : base(FullLife, InitialLevel)
         {
             EventBus.AsObservable<Damage>()
-                .Where((damage) => AmI(damage.Target))
+                .Where(damage => AmIThe(damage.Target))
                 .Subscribe(damage => ReceiveDamage(damage.Value));
 
-            EventBus.AsObservable<LifeIncrement>()
-                .Where((heal) => AmI(heal.Target))
+            HealSubscription = EventBus.AsObservable<LifeIncrement>()
+                .Where(heal => AmIThe(heal.Target))
                 .Subscribe(increment => Heal(increment.Points));
         }
 
-        private bool AmI(Attackable character)
+        private bool AmIThe(Attackable character)
         {
             return character == this;
         }
@@ -42,7 +42,6 @@ namespace RPGCombatKata
 
         public void Heal(int healPoints)
         {
-            if (IsDead()) return;
             if (Life == FullLife) return;
             Life += healPoints;
         }
