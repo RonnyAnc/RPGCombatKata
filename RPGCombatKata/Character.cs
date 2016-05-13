@@ -33,11 +33,6 @@ namespace RPGCombatKata
             return Life < FullLife;
         }
 
-        private bool IsItMe(Attackable character)
-        {
-            return character == this;
-        }
-
         public bool IsAlive()
         {
             return Life != 0;
@@ -51,11 +46,6 @@ namespace RPGCombatKata
         public void Heal(int healPoints)
         {
             Life += healPoints;
-        }
-
-        private bool IsDead()
-        {
-            return !IsAlive();
         }
 
         public void JoinTo(string faction)

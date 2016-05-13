@@ -18,7 +18,7 @@ namespace RPGCombatKata
                 .Subscribe(damage => ReceiveDamage(damage.Value));
         }
 
-        private bool IsItMe(Attackable character)
+        protected bool IsItMe(Attackable character)
         {
             return character == this;
         }
