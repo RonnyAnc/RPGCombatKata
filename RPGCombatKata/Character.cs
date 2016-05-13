@@ -8,6 +8,7 @@ namespace RPGCombatKata
 {
     public abstract class Character : Attackable
     {
+        private IDisposable healSubscription;
         public List<string> Factions { get; } = new List<string>();
         private const int FullLife = 1000;
         private const int InitialLevel = 1;
@@ -16,10 +17,15 @@ namespace RPGCombatKata
 
         protected Character() : base(FullLife, InitialLevel)
         {
-            HealSubscription = EventBus.AsObservable<LifeIncrement>()
+            healSubscription = EventBus.AsObservable<LifeIncrement>()
                 .Where(heal => IsItMe(heal.Target))
                 .Where(_ => HasNotFullLife())
                 .Subscribe(increment => Heal(increment.Points));
+        }
+
+        protected override void Unsubscribe()
+        {
+            healSubscription.Dispose();
         }
 
         private bool HasNotFullLife()
