@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 
 namespace RPGCombatKata
 {
@@ -12,6 +13,15 @@ namespace RPGCombatKata
         {
             Life = life;
             Level = level;
+
+            EventBus.AsObservable<Damage>()
+                .Where(damage => IsItMe(damage.Target))
+                .Subscribe(damage => ReceiveDamage(damage.Value));
+        }
+
+        private bool IsItMe(Attackable character)
+        {
+            return character == this;
         }
 
         public abstract bool IsAttackableBy(Character source);

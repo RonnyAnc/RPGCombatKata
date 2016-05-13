@@ -16,10 +16,6 @@ namespace RPGCombatKata
 
         protected Character() : base(FullLife, InitialLevel)
         {
-            EventBus.AsObservable<Damage>()
-                .Where(damage => IsItMe(damage.Target))
-                .Subscribe(damage => ReceiveDamage(damage.Value));
-
             HealSubscription = EventBus.AsObservable<LifeIncrement>()
                 .Where(heal => IsItMe(heal.Target))
                 .Where(_ => HasNotFullLife())
