@@ -55,14 +55,12 @@ namespace Tests
     
         private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)
         {
-            return new TestableCharacter(life: life, 
-                damage: damage, 
-                level: level);
+            return new MeleeFigther(life, level, damage);
         }
 
         private Character ACharacter()
         {
-            return new MeleeFigther();
+            return new MeleeFigther(1000, 1);
         }
     }
 }
