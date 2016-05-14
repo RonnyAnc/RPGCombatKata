@@ -15,7 +15,7 @@ namespace RPGCombatKata
             Target = target;
         }
 
-        public bool ArePartnersInvolvedCharacters()
+        public bool ArePartnersTheInvolvedCharacters()
         {
             return Healer.IsPartnerOf(Target);
         }

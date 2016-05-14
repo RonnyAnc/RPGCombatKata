@@ -41,7 +41,7 @@ namespace RPGCombatKata
 
         public bool CharactersArePartners(Heal heal)
         {
-            return heal.ArePartnersInvolvedCharacters();
+            return heal.ArePartnersTheInvolvedCharacters();
         }
 
         private static void SendLifeIncrement(Heal heal)
@@ -51,7 +51,7 @@ namespace RPGCombatKata
 
         private static bool CharactersAreEnemies(Attack attack)
         {
-            return attack.Target.IsAttackableBy(attack.Source);
+            return attack.AreEnemiesTheInvolvedCharacters();
         }
 
         private bool IsInRange(Attack attack)

@@ -38,5 +38,10 @@ namespace RPGCombatKata
         {
             return distance <= Range;
         }
+
+        public bool AreEnemiesTheInvolvedCharacters()
+        {
+            return Target.IsAttackableBy(Source);
+        }
     }
 }
