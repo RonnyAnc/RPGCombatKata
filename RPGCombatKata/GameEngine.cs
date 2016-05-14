@@ -41,7 +41,7 @@ namespace RPGCombatKata
 
         public bool CharactersArePartners(Heal heal)
         {
-            return heal.Healer.Factions.Any(f => heal.Target.Factions.Contains(f));
+            return heal.ArePartnersInvolvedCharacters();
         }
 
         private static void SendLifeIncrement(Heal heal)

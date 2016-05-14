@@ -65,5 +65,15 @@ namespace RPGCombatKata
         {
             Factions.Remove(faction);
         }
+
+        public bool IsPartnerOf(Character target)
+        {
+            return Factions.Any(target.IsMemberOf);
+        }
+
+        private bool IsMemberOf(string f)
+        {
+            return Factions.Contains(f);
+        }
     }
 }

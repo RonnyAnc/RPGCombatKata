@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace RPGCombatKata
 {
     public class Heal : GameEvent
@@ -11,6 +13,11 @@ namespace RPGCombatKata
         {
             Healer = healer;
             Target = target;
+        }
+
+        public bool ArePartnersInvolvedCharacters()
+        {
+            return Healer.IsPartnerOf(Target);
         }
     }
 }
