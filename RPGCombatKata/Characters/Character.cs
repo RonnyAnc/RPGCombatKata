@@ -43,7 +43,7 @@ namespace RPGCombatKata.Characters
 
         public bool IsAlive()
         {
-            return Life != 0;
+            return !NoLife();
         }
 
         public override bool IsAttackableBy(Character source)

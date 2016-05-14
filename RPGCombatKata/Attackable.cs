@@ -34,7 +34,7 @@ namespace RPGCombatKata
             if (NoLife()) Unsubscribe();
         }
 
-        private bool NoLife()
+        protected bool NoLife()
         {
             return Life <= 0;
         }
