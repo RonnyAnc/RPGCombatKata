@@ -9,14 +9,13 @@ namespace RPGCombatKata
     public abstract class Character : Attackable
     {
         private const int FullLife = 1000;
-        private const int InitialLevel = 1;
 
         private readonly IDisposable healSubscription;
         public List<string> Factions { get; } = new List<string>();
         public decimal Damage { get; protected set; }
         public abstract int AttackRange { get; }
 
-        protected Character(int initialLife, decimal damage, int initialLevel) : base(initialLife)
+        protected Character(decimal initialLife, decimal damage, int initialLevel) : base(initialLife)
         {
             Damage = damage;
             Level = initialLevel;
