@@ -74,16 +74,4 @@ namespace RPGCombatKata
             EventBus.Send(new Damage(attack.Damage, attack.Target));
         }
     }
-
-    public class LifeIncrement : GameEvent
-    {
-        public int Points { get; }
-        public Character Target { get; }
-
-        public LifeIncrement(int points, Character target)
-        {
-            Points = points;
-            Target = target;
-        }
-    }
 }
