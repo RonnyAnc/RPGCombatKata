@@ -34,9 +34,6 @@ namespace RPGCombatKata
             Unsubscribe();
         }
 
-        protected virtual void Unsubscribe()
-        {
-            
-        }
+        protected virtual void Unsubscribe() {}
     }
 }
