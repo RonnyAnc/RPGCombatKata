@@ -41,6 +41,17 @@ namespace Tests
 
             target.Life.Should().Be(0);
         }
+
+        [Test]
+        public void can_be_healed()
+        {
+            var target = ACharacterWith(life: FullLife);
+
+            new Damage(100, target).Raise();
+            new LifeIncrement(100, target).Raise();
+
+            target.Life.Should().Be(FullLife);
+        }
     
         private Character ACharacterWith(int level = 1, int life = 1000, int damage = 0)
         {

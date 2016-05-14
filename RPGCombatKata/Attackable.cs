@@ -31,7 +31,12 @@ namespace RPGCombatKata
         protected void ReceiveDamage(decimal damage)
         {
             Life -= damage;
-            Unsubscribe();
+            if (NoLife()) Unsubscribe();
+        }
+
+        private bool NoLife()
+        {
+            return Life <= 0;
         }
 
         protected virtual void Unsubscribe() {}
