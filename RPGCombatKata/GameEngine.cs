@@ -29,7 +29,7 @@ namespace RPGCombatKata
             EventBus.AsObservable<Attack>()
                 .Where(IsInRange)
                 .Where(IsNotASelfAttack)
-                .Where(CharactersAreEnemies)
+                .Where(CanSourceAttackToTarget)
                 .Subscribe(SendDamage);
         }
         
@@ -48,7 +48,7 @@ namespace RPGCombatKata
             new LifeIncrement(points: heal.Points, target: heal.Target).Raise();
         }
 
-        private static bool CharactersAreEnemies(Attack attack)
+        private static bool CanSourceAttackToTarget(Attack attack)
         {
             return attack.CanSourceAttackToTarget();
         }
