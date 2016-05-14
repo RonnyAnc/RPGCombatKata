@@ -8,7 +8,6 @@ namespace RPGCombatKata
 {
     public class GameEngine
     {
-        private const int SignificantLevelDifference = 5;
         private readonly RangeCalculator rangeCalculator;
 
         public GameEngine(RangeCalculator rangeCalculator)
