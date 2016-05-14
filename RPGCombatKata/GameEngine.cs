@@ -18,10 +18,8 @@ namespace RPGCombatKata
 
         private void SubscribeToHeals()
         {
-            var selfHeals = EventBus.AsObservable<Heal>().Where(IsASelfHeal);
-            var partnerHeals = EventBus.AsObservable<Heal>().Where(CharactersArePartners);
-            selfHeals
-                .Merge(partnerHeals)
+            EventBus.AsObservable<Heal>()
+                .Where(CharactersArePartners)
                 .Subscribe(SendLifeIncrement);
         }
 
@@ -51,7 +49,7 @@ namespace RPGCombatKata
 
         private static bool CharactersAreEnemies(Attack attack)
         {
-            return attack.AreEnemiesTheInvolvedCharacters();
+            return attack.CanSourceAttackToTarget();
         }
 
         private bool IsInRange(Attack attack)
