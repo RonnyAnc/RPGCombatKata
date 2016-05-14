@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
+using RPGCombatKata.Events;
 
-namespace RPGCombatKata
+namespace RPGCombatKata.Characters
 {
     public abstract class Character : Attackable
     {

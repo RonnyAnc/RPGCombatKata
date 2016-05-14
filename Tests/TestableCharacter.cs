@@ -1,4 +1,5 @@
 ﻿using RPGCombatKata;
+using RPGCombatKata.Characters;
 
 namespace Tests
 {

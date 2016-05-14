@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using RPGCombatKata.Characters;
 
 namespace RPGCombatKata
 {

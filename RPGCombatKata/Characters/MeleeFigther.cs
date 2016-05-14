@@ -1,4 +1,4 @@
-﻿namespace RPGCombatKata
+﻿namespace RPGCombatKata.Characters
 {
     public class MeleeFigther : Character
     {

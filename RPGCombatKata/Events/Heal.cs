@@ -1,6 +1,6 @@
-using System.Linq;
+using RPGCombatKata.Characters;
 
-namespace RPGCombatKata
+namespace RPGCombatKata.Events
 {
     public class Heal : GameEvent
     {

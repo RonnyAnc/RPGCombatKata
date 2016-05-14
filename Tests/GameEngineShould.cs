@@ -4,6 +4,8 @@ using FluentAssertions.Equivalency;
 using NSubstitute;
 using NUnit.Framework;
 using RPGCombatKata;
+using RPGCombatKata.Characters;
+using RPGCombatKata.Events;
 
 namespace Tests
 {

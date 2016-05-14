@@ -1,4 +1,4 @@
-﻿namespace RPGCombatKata
+﻿namespace RPGCombatKata.Events
 {
     public interface GameEvent
     {

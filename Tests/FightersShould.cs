@@ -3,6 +3,7 @@ using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using RPGCombatKata;
+using RPGCombatKata.Characters;
 
 namespace Tests
 {

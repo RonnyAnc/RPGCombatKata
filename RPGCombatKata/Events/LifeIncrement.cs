@@ -1,4 +1,6 @@
-namespace RPGCombatKata
+using RPGCombatKata.Characters;
+
+namespace RPGCombatKata.Events
 {
     public class LifeIncrement : GameEvent
     {

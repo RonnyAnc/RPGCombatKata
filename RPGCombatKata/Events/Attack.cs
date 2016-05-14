@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RPGCombatKata.Characters;
 
-namespace RPGCombatKata
+namespace RPGCombatKata.Events
 {
     public class Attack : GameEvent
     {
