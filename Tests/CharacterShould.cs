@@ -20,19 +20,6 @@ namespace Tests
         }
 
         [Test]
-        public void start_with_full_life_points_as_health()
-        {
-            ACharacter().Life.Should().Be(FullLife);
-            ACharacter().IsAlive().Should().BeTrue();
-        }
-
-        [Test]
-        public void start_at_level_1()
-        {
-            ACharacter().Level.Should().Be(1);
-        }
-
-        [Test]
         public void not_be_healed_when_it_has_full_life()
         {
             var character = ACharacterWith(life: FullLife);

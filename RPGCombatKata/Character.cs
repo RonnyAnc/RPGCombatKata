@@ -26,14 +26,6 @@ namespace RPGCombatKata
                 .Subscribe(increment => Heal(increment.Points));
         }
 
-        protected Character() : base(FullLife)
-        {
-            healSubscription = EventBus.AsObservable<LifeIncrement>()
-                .Where(heal => IsItMe(heal.Target))
-                .Where(_ => HasNotFullLife())
-                .Subscribe(increment => Heal(increment.Points));
-        }
-
         protected override void Unsubscribe()
         {
             healSubscription.Dispose();
