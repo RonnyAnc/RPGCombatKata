@@ -21,9 +21,14 @@ namespace RPGCombatKata
             Level = initialLevel;
 
             healSubscription = EventBus.AsObservable<LifeIncrement>()
-                .Where(heal => IsItMe(heal.Target))
+                .Where(AmITheTarget)
                 .Where(_ => HasNotFullLife())
                 .Subscribe(increment => Heal(increment.Points));
+        }
+
+        private bool AmITheTarget(LifeIncrement lifeIncrement)
+        {
+            return lifeIncrement.Target == this;
         }
 
         protected override void Unsubscribe()
